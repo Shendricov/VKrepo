@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoVK" translatesAutoresizingMaskIntoConstraints="NO" id="ufv-n5-g1M">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoVK-1" translatesAutoresizingMaskIntoConstraints="NO" id="ufv-n5-g1M">
                                 <rect key="frame" x="94.5" y="335.5" width="225" height="225"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                             </imageView>
@@ -43,7 +43,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logoVK" width="225" height="225"/>
+        <image name="logoVK-1" width="225" height="225"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
