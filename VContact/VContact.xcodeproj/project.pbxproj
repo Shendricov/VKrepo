@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30E15EE728211B8C008E6CD9 /* FriendsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E15EE628211B8C008E6CD9 /* FriendsTableView.swift */; };
 		3ED76D65281B8FC900F24DE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED76D64281B8FC900F24DE4 /* AppDelegate.swift */; };
 		3ED76D67281B8FC900F24DE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED76D66281B8FC900F24DE4 /* SceneDelegate.swift */; };
 		3ED76D69281B8FC900F24DE4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED76D68281B8FC900F24DE4 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		30E15EE628211B8C008E6CD9 /* FriendsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableView.swift; sourceTree = "<group>"; };
 		3ED76D61281B8FC900F24DE4 /* VContact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VContact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ED76D64281B8FC900F24DE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3ED76D66281B8FC900F24DE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				3ED76D64281B8FC900F24DE4 /* AppDelegate.swift */,
 				3ED76D66281B8FC900F24DE4 /* SceneDelegate.swift */,
+				30E15EE628211B8C008E6CD9 /* FriendsTableView.swift */,
 				3ED76D68281B8FC900F24DE4 /* ViewController.swift */,
 				3ED76D6A281B8FC900F24DE4 /* Main.storyboard */,
 				3ED76D6D281B8FCC00F24DE4 /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 				3ED76D69281B8FC900F24DE4 /* ViewController.swift in Sources */,
 				3ED76D65281B8FC900F24DE4 /* AppDelegate.swift in Sources */,
 				3ED76D67281B8FC900F24DE4 /* SceneDelegate.swift in Sources */,
+				30E15EE728211B8C008E6CD9 /* FriendsTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
