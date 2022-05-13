@@ -1,14 +1,17 @@
 //
-//  FriendsTableView.swift
+//  TestTableViewController.swift
 //  VContact
 //
-//  Created by Mikhail Shendrikov on 03.05.2022.
+//  Created by Mikhail Shendrikov on 06.05.2022.
 //
 
 import UIKit
 
-class FriendsTableView: UITableViewController {
+class TestTableViewController: UITableViewController {
 
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var familyName: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,19 +31,24 @@ class FriendsTableView: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 20
     }
 
     
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-         
-//         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-//         cell
-
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier2") else {
+            let newCell = UITableViewCell(style: .default, reuseIdentifier: "reuseIdentifier")
+            configureCell()
+            return newCell
+        }
+        configureCell()
         return cell
     }
-   
+    
+    private func configureCell() {
+        self.nameLabel.text = "Mikhail"
+        self.familyName.text = "Shendrikov"
+    }
 
     /*
     // Override to support conditional editing of the table view.
