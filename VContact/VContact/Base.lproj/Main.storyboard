@@ -244,9 +244,39 @@
                                                 <constraint firstAttribute="height" constant="300" id="kCS-Ue-Oj6"/>
                                             </constraints>
                                         </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i9W-3q-qaN" customClass="LikeViewControl" customModule="VContact" customModuleProvider="target">
+                                            <rect key="frame" x="68" y="98" width="60" height="30"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="733-gG-edY">
+                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6d-ho-tvv">
+                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="vZZ-jd-dba">
+                                                            <rect key="frame" x="30" y="1.5" width="30" height="27.5"/>
+                                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="i9W-3q-qaN" secondAttribute="height" multiplier="2:1" id="8Je-Ue-oma"/>
+                                                <constraint firstAttribute="trailing" secondItem="733-gG-edY" secondAttribute="trailing" id="FmJ-D4-rkh"/>
+                                                <constraint firstAttribute="width" constant="60" id="Yc7-vO-lqz"/>
+                                                <constraint firstItem="733-gG-edY" firstAttribute="leading" secondItem="i9W-3q-qaN" secondAttribute="leading" id="l3K-KW-1mQ"/>
+                                                <constraint firstItem="733-gG-edY" firstAttribute="top" secondItem="i9W-3q-qaN" secondAttribute="top" id="mfw-xq-uGM"/>
+                                                <constraint firstAttribute="bottom" secondItem="733-gG-edY" secondAttribute="bottom" id="odj-0n-jj9"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="i9W-3q-qaN" secondAttribute="bottom" id="3mM-XI-3k8"/>
                                         <constraint firstItem="vPV-Mw-x4N" firstAttribute="centerY" secondItem="iHC-uE-yZK" secondAttribute="centerY" id="6nm-dN-Ymf"/>
+                                        <constraint firstAttribute="trailing" secondItem="i9W-3q-qaN" secondAttribute="trailing" id="KsU-Oh-2BS"/>
                                         <constraint firstItem="vPV-Mw-x4N" firstAttribute="centerX" secondItem="iHC-uE-yZK" secondAttribute="centerX" id="dMa-TZ-xkP"/>
                                         <constraint firstItem="vPV-Mw-x4N" firstAttribute="leading" secondItem="iHC-uE-yZK" secondAttribute="leadingMargin" id="mP2-BG-Vtm"/>
                                         <constraint firstItem="vPV-Mw-x4N" firstAttribute="top" secondItem="iHC-uE-yZK" secondAttribute="topMargin" id="uDd-mV-OB6"/>
@@ -255,6 +285,8 @@
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="128" height="128"/>
                                 <connections>
+                                    <outlet property="countLike" destination="K6d-ho-tvv" id="3qA-eu-4mV"/>
+                                    <outlet property="heardImage" destination="vZZ-jd-dba" id="8uf-I3-AJd"/>
                                     <outlet property="pfotoImage" destination="vPV-Mw-x4N" id="KfO-oK-DyH"/>
                                 </connections>
                             </collectionViewCell>
@@ -268,7 +300,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="667-QT-Cg4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5458" y="139"/>
+            <point key="canvasLocation" x="5457.971014492754" y="138.61607142857142"/>
         </scene>
         <!--Друзья-->
         <scene sceneID="dgS-cL-T5z">
@@ -331,9 +363,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="logoVK-1" width="183" height="163"/>
-        <image name="person.2" catalog="system" width="32" height="32"/>
-        <image name="person.fill" catalog="system" width="32" height="32"/>
+        <image name="person.2" catalog="system" width="128" height="81"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

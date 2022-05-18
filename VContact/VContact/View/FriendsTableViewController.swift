@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class FriendsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -19,6 +21,11 @@ class FriendsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.setNeedsDisplay()
     }
 
     // MARK: - Table view data source
