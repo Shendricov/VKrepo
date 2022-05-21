@@ -36,5 +36,6 @@ class ViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    func logoOutUnwind (_ segue: UIStoryboardSegue) {}
 }
 

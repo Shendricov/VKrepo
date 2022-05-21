@@ -8,14 +8,37 @@
 import UIKit
 
 class PhotosViewCell: UICollectionViewCell {
-    @IBOutlet weak var pfotoImage: UIImageView!
+    @IBOutlet weak var rootView: UIView!
+    @IBOutlet weak var photoImage: UIImageView!
     @IBOutlet weak var heardImage: UIImageView!
     @IBOutlet weak var countLike: UILabel!
     private var numberLikesTap: Int = 0
     
+    
+    override class func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        countLike.text = String(numberLikesTap)
+//        rootView.layer.cornerRadius = rootView.frame.height/2
+//        rootView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//        rootView.layer.shadowOffset = .zero
+//        rootView.layer.shadowOpacity = 1
+//        rootView.layer.shadowRadius = 10
+        
+//        photoImage.layer.cornerRadius = photoImage.frame.height/2
+//        photoImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+    }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        countLike.text = String(numberLikesTap)
+        
     }
     
     override init(frame: CGRect) {
@@ -49,8 +72,6 @@ class PhotosViewCell: UICollectionViewCell {
     
 }
 
-
-@IBDesignable
 class LikeViewControl: UIControl {
    
     /*

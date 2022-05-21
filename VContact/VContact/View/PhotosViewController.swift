@@ -50,7 +50,7 @@ class PhotosViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotoCell", for: indexPath) as! PhotosViewCell
-        cell.pfotoImage.image = photosArray[indexPath.row]
+        cell.photoImage.image = photosArray[indexPath.row]
         return cell
     }
 

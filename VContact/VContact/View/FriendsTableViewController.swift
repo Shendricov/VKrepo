@@ -83,6 +83,7 @@ class FriendsTableViewController: UITableViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewDestination = storyboard.instantiateViewController(withIdentifier: "PhotoFriendsScene") as! PhotosViewController
+        viewDestination.title = getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name
         if let userPhotos = usersPhotoStorage[getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name] {
             viewDestination.photosArray = userPhotos
         }
@@ -111,6 +112,7 @@ class FriendsTableViewController: UITableViewController {
         let sectionLetter = firstName?.first
         return sectionLetter?.description
     }
+    
     
     /*
     // Override to support conditional editing of the table view.
@@ -157,4 +159,8 @@ class FriendsTableViewController: UITableViewController {
     }
     */
 
+    
+    
+    
+    
 }
