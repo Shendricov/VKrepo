@@ -13,7 +13,7 @@ protocol chengeUserGroups {
 
 class UserGroupsTableViewController: UITableViewController {
 
-    var allGroups: Array<Group> = [Group(title: "КайтСерфинг"), Group(title: "Космос"),Group(title: "Программирование", selected: true),Group(title: "Серфинг", selected: true),Group(title: "Формула1")]
+    var allGroups: Array<Group> = [Group(title: "KiteSerfing"), Group(title: "Cosmos"),Group(title: "Programming", selected: true),Group(title: "Serfing", selected: true),Group(title: "Formula1")]
     var userGroups: Array<Group> = []
     
     
@@ -57,13 +57,13 @@ class UserGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoNameType", for: indexPath) as! PhotoNameCell
         cell.name.text = userGroups[indexPath.row].title
-        cell.avatar.image = UIImage(imageLiteralResourceName: userGroups[indexPath.row].title)
+        cell.avatar.image = UIImage(imageLiteralResourceName: "Groups/\(userGroups[indexPath.row].title)")
 
         return cell
     }
   
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let conAction = UIContextualAction(style: .destructive, title: "Удалить", handler: {_,_,_ in
+        let conAction = UIContextualAction(style: .destructive, title: "Delete", handler: {_,_,_ in
             var index: Int = 0
             self.allGroups.forEach({group in
                 if group == self.userGroups[indexPath.row]{

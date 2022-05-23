@@ -20,17 +20,17 @@ class ViewController: UIViewController {
         guard let name = loginTextField.text,
               let password = passwordTextField.text
               else {
-            alertError(message: "Необходимо указать логин и пароль.")
+            alertError(message: "Enter login and password")
             return }
         if users[name] == password {
             performSegue(withIdentifier: "segueAfterRegistration", sender: nil)
         } else {
-            alertError(message: "Указанный логин или пароль отсутствуют.")
+            alertError(message: "Your login or password wrong.")
             return } 
     }
    
     private func alertError(message: String) {
-        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ок", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true)

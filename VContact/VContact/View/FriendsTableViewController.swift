@@ -30,7 +30,7 @@ class FriendsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    var users: Array<User> = [User(name: "Микки"), User(name: "Шапокляк"), User(name: "Попай"), User(name: "Чебурашка"), User(name: "Майкл")] { didSet {
+    var users: Array<User> = [User(name: "Mikky"), User(name: "Chapoklyak"), User(name: "Popay"), User(name: "Cheburashka"), User(name: "Maikle")] { didSet {
         users.sort(by: {one, two in one.name < two.name})
         
         }
@@ -59,7 +59,7 @@ class FriendsTableViewController: UITableViewController {
         return result
     }
     
-    var usersPhotoStorage: Dictionary<String,[UIImage]> = ["Попай":[UIImage(imageLiteralResourceName: "Popay1"), UIImage(imageLiteralResourceName: "Popay2"),UIImage(imageLiteralResourceName: "Popay3"),UIImage(imageLiteralResourceName: "Popay4"),UIImage(imageLiteralResourceName: "Popay5"),UIImage(imageLiteralResourceName: "Popay6"),UIImage(imageLiteralResourceName: "Popay7")], "Микки": [UIImage(imageLiteralResourceName: "Mikky1"),UIImage(imageLiteralResourceName: "Mikky2"),UIImage(imageLiteralResourceName: "Mikky3"),UIImage(imageLiteralResourceName: "Mikky4"),UIImage(imageLiteralResourceName: "Mikky5"),UIImage(imageLiteralResourceName: "Mikky6"),UIImage(imageLiteralResourceName: "Mikky7")], "Майкл": [UIImage(imageLiteralResourceName: "Mike1"),UIImage(imageLiteralResourceName: "Mike2"),UIImage(imageLiteralResourceName: "Mike3"),UIImage(imageLiteralResourceName: "Mike4"),UIImage(imageLiteralResourceName: "Mike5")]]
+    var usersPhotoStorage: Dictionary<String,[UIImage]> = ["Popay":[UIImage(imageLiteralResourceName: "Popay1"), UIImage(imageLiteralResourceName: "Popay2"),UIImage(imageLiteralResourceName: "Popay3"),UIImage(imageLiteralResourceName: "Popay4"),UIImage(imageLiteralResourceName: "Popay5"),UIImage(imageLiteralResourceName: "Popay6"),UIImage(imageLiteralResourceName: "Popay7")], "Mikky": [UIImage(imageLiteralResourceName: "Mikky1"),UIImage(imageLiteralResourceName: "Mikky2"),UIImage(imageLiteralResourceName: "Mikky3"),UIImage(imageLiteralResourceName: "Mikky4"),UIImage(imageLiteralResourceName: "Mikky5"),UIImage(imageLiteralResourceName: "Mikky6"),UIImage(imageLiteralResourceName: "Mikky7")], "Maikle": [UIImage(imageLiteralResourceName: "Mike1"),UIImage(imageLiteralResourceName: "Mike2"),UIImage(imageLiteralResourceName: "Mike3"),UIImage(imageLiteralResourceName: "Mike4"),UIImage(imageLiteralResourceName: "Mike5")]]
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -76,6 +76,7 @@ class FriendsTableViewController: UITableViewController {
         cell.name.text = getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name
         cell.selectionStyle = .blue
         cell.accessoryType = .disclosureIndicator
+        print("Координаты ячейчи следующие: \(indexPath)")
         return cell
     }
     
@@ -91,7 +92,7 @@ class FriendsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "Удалить", handler: {_,_,_ in
+        let action = UIContextualAction(style: .destructive, title: "Delete", handler: {_,_,_ in
             let deleteName = self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name
             var index:Int = 0
             self.users.forEach({user in
@@ -107,6 +108,7 @@ class FriendsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        здесь можно сократить код, сли переделать массив в словарь.
         let getArr = getArrForTableView(usersArr: users)[section].first
         let firstName = getArr?.name
         let sectionLetter = firstName?.first

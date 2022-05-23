@@ -11,12 +11,35 @@ class AllGroupsTableViewController: UITableViewController {
 
     var allGroupsChoose: Array<Group> = []
     var userGroupsChoose: Array<Group> = []
+    private var filteredSearchGroups: Array<Group> = []
+
+    private var searchController = UISearchController(searchResultsController: nil)
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return false }
+        return text.isEmpty
+    }
+    private var isFiltering: Bool {
+        return searchController.isActive && !searchBarIsEmpty
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let nibTypeCell = UINib(nibName: "PhotoNameCell", bundle: nil)
         tableView.register(nibTypeCell, forCellReuseIdentifier: "PhotoNameType")
         print(allGroupsChoose)
+//  результат поиска будет получать текущий класс.
+        searchController.searchResultsUpdater = self
+//  позволит взаимодействовать с элементами, полученными в результате поиска.
+        searchController.obscuresBackgroundDuringPresentation = false
+//  надпись на незаполненном полу.
+        searchController.searchBar.placeholder = "Search"
+//  добавляем созданный нами поиск в navigation bar в раздел search.
+        navigationItem.searchController = searchController
+//  опускаем строку поиска при переходе на другой экран.
+        definesPresentationContext = true
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,15 +56,27 @@ class AllGroupsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        if isFiltering {
+          return filteredSearchGroups.count
+        }
+        
         return allGroupsChoose.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoNameType", for: indexPath) as! PhotoNameCell
-        cell.name.text = allGroupsChoose[indexPath.row].title
-        cell.avatar.image = UIImage(imageLiteralResourceName: allGroupsChoose[indexPath.row].title)
-        if allGroupsChoose[indexPath.row].selected {
+        
+        var currentGroup: Group!
+        if isFiltering {
+            currentGroup = filteredSearchGroups[indexPath.row]
+        } else {
+            currentGroup = allGroupsChoose[indexPath.row]
+        }
+        
+        cell.name.text = currentGroup.title
+        cell.avatar.image = UIImage(imageLiteralResourceName: "Groups/\(currentGroup.title)")
+        if currentGroup.selected {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
@@ -50,10 +85,28 @@ class AllGroupsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if allGroupsChoose[indexPath.row].selected {
-            allGroupsChoose[indexPath.row].selected = false
+        if isFiltering {
+            var filteredGroup = filteredSearchGroups[indexPath.row]
+            if filteredGroup.selected {
+                filteredGroup.selected = false
+                filteredSearchGroups[indexPath.row] = filteredGroup
+            } else {
+                filteredGroup.selected = true
+                filteredSearchGroups[indexPath.row] = filteredGroup
+            }
+            var index = 0
+            allGroupsChoose.forEach({(group: Group) in
+                if group.title == filteredGroup.title {
+                    allGroupsChoose[index] = filteredGroup
+                }
+                index += 1
+            })
         } else {
-            allGroupsChoose[indexPath.row].selected = true
+            if allGroupsChoose[indexPath.row].selected {
+                allGroupsChoose[indexPath.row].selected = false
+            } else {
+                allGroupsChoose[indexPath.row].selected = true
+            }
         }
         tableView.reloadData()
     }
@@ -111,4 +164,19 @@ class AllGroupsTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension AllGroupsTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        getArrayForFilteredSearchGroups(searchController.searchBar.text!)
+    }
+    
+    private func getArrayForFilteredSearchGroups(_ searchText: String) {
+        
+        filteredSearchGroups = allGroupsChoose.filter({ (group: Group) -> Bool in
+            group.title.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
+    }
+    
 }

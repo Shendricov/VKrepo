@@ -32,3 +32,22 @@ struct Group: GroupProtocol, Equatable {
 //    var avatar: UIImage
 }
 
+protocol NewsProtocol {
+    var avatarPhoto: UIImage {get set}
+    var nameUser: String {get set}
+    var dateNews: String {get set}
+    var textNews: String {get set}
+    var imageNews: UIImage {get set}
+    var likeImage: UIImage {get set}
+    var countLike: Int {get set}
+}
+
+struct News: NewsProtocol {
+    var avatarPhoto: UIImage
+    var nameUser: String
+    var dateNews: String
+    var textNews: String
+    var imageNews: UIImage
+    var likeImage: UIImage
+    var countLike: Int
+}
