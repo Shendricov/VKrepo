@@ -89,10 +89,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kqG-DD-wHD">
+                    <imageView verifyAmbiguity="ignoreSizes" clipsSubviews="YES" contentMode="scaleAspectFit" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="kqG-DD-wHD">
                         <rect key="frame" x="20" y="89.5" width="429" height="135.5"/>
                         <color key="backgroundColor" systemColor="systemGray3Color"/>
                         <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="429" id="63C-IG-IJN"/>
+                        </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="uN0-hQ-EDN">
                         <rect key="frame" x="20" y="228" width="70" height="45"/>

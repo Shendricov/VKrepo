@@ -12,6 +12,7 @@ class ShadowForAvatar: UIView {
     @IBOutlet var shadowView: UIView!
     @IBOutlet var avatar: UIImageView!
     
+    
     @IBInspectable var widthShadow: CGFloat = 10
     @IBInspectable var opacityShadow: Float = 0.8
     @IBInspectable var colorShadow = UIColor.black

@@ -81,14 +81,31 @@ class FriendsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewDestination = storyboard.instantiateViewController(withIdentifier: "PhotoFriendsScene") as! PhotosViewController
-        viewDestination.title = getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name
-        if let userPhotos = usersPhotoStorage[getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name] {
-            viewDestination.photosArray = userPhotos
+        guard let avatarAnimate = tableView.cellForRow(at: indexPath) as? PhotoNameCell else {
+            return
         }
-        navigationController?.pushViewController(viewDestination, animated: true)
+        
+        UIView.animate(withDuration: 0.2,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 10,
+                       options: .curveLinear,
+                       animations: {
+            avatarAnimate.avatar.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            avatarAnimate.avatarShadow.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            avatarAnimate.avatar.transform = .identity
+            avatarAnimate.avatarShadow.transform = .identity
+        },
+                       completion: {_ in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewDestination = storyboard.instantiateViewController(withIdentifier: "PhotoFriendsScene") as! PhotosViewController
+            viewDestination.title = self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name
+            if let userPhotos = self.usersPhotoStorage[self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name] {
+                viewDestination.photosArray = userPhotos
+            }
+            self.navigationController?.pushViewController(viewDestination, animated: true)
+            
+        })
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

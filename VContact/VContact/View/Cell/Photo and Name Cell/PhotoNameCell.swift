@@ -9,8 +9,9 @@ import UIKit
 
 
 class PhotoNameCell: UITableViewCell {
-    
+    @IBOutlet var shadowForAvatar: UIView!
     @IBOutlet weak var rootView: UIView!
+    @IBOutlet var avatarShadow: UIView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var name: UILabel!
     let subViewAvatar = UIView()
@@ -32,7 +33,7 @@ class PhotoNameCell: UITableViewCell {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
+        shadowForAvatar.layer.cornerRadius = shadowForAvatar.bounds.height/2
 //        layer.masksToBounds = false
                 
 //        avatar.layer.backgroundColor = #colorLiteral(red: 0.9465178847, green: 1, blue: 0.6836723089, alpha: 1).cgColor

@@ -76,8 +76,10 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="avatar" destination="yDD-yj-Y06" id="Kek-9m-iQO"/>
+                <outlet property="avatarShadow" destination="mvZ-Lh-8h4" id="Upw-EN-cny"/>
                 <outlet property="name" destination="bYI-md-b6P" id="yDc-tj-jfV"/>
                 <outlet property="rootView" destination="H2p-sc-9uM" id="7ST-Gr-3tX"/>
+                <outlet property="shadowForAvatar" destination="Hi9-ms-4V7" id="u6i-rU-aEL"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
         </tableViewCell>

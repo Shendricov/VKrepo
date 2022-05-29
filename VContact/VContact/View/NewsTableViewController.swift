@@ -14,6 +14,7 @@ class NewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsCellType")
+        print("Размеры картинки \(allNewsArr[0].imageNews.size)")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -40,8 +41,11 @@ class NewsTableViewController: UITableViewController {
         cell.dateNews.text = allNewsArr[indexPath.row].dateNews
         cell.textNews.text = allNewsArr[indexPath.row].textNews
         cell.imageNews.image = allNewsArr[indexPath.row].imageNews
+        self.view.layoutIfNeeded()
         cell.likeImage.image = allNewsArr[indexPath.row].likeImage
         cell.countLike.text = String(allNewsArr[indexPath.row].countLike)
+        
+        
         return cell
     }
 

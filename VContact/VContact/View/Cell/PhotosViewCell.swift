@@ -59,12 +59,26 @@ class PhotosViewCell: UICollectionViewCell {
     @objc private func tapLike(_ gestureRecognise: UITapGestureRecognizer) {
         if numberLikesTap == 0 {
             heardImage.image = .init(systemName: "heart.fill")
-            heardImage.tintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+           
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           animations: {
+                self.heardImage.transform = CGAffineTransform(scaleX: -1, y: -1)
+                self.heardImage.tintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+                self.heardImage.transform = .identity
+            })
             numberLikesTap = 1
             countLike.text = String(numberLikesTap)
         } else {
             heardImage.image = .init(systemName: "heart")
-            heardImage.tintColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           animations: {
+                self.heardImage.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
+                self.heardImage.tintColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+                self.heardImage.transform = .identity
+            })
             numberLikesTap = 0
             countLike.text = String(numberLikesTap)
         }

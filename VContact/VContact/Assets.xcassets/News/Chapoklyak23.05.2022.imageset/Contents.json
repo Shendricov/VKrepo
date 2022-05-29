@@ -3,6 +3,17 @@
     {
       "filename" : "Chapoklyak23:05:2022.jpeg",
       "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 220,
+          "top" : 221
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "stretch"
+        },
+        "mode" : "3-part-vertical"
+      },
       "scale" : "1x"
     },
     {
