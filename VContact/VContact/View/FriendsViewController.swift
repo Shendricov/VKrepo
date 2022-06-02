@@ -1,26 +1,21 @@
 //
-//  FriendsTableViewController.swift
+//  FriendsViewController.swift
 //  VContact
 //
-//  Created by Mikhail Shendrikov on 09.05.2022.
+//  Created by Mikhail Shendrikov on 29.05.2022.
 //
 
 import UIKit
 
-
-
-class FriendsTableViewController: UITableViewController {
+class FriendsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var viewForSortLiteral: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let cellTypeNib = UINib(nibName: "PhotoNameCell", bundle: nil)
-         tableView.register(cellTypeNib, forCellReuseIdentifier: "PhotoNameType")
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.register(cellTypeNib, forCellReuseIdentifier: "PhotoNameType")
+        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,15 +57,15 @@ class FriendsTableViewController: UITableViewController {
     var usersPhotoStorage: Dictionary<String,[UIImage]> = ["Popay":[UIImage(imageLiteralResourceName: "Popay1"), UIImage(imageLiteralResourceName: "Popay2"),UIImage(imageLiteralResourceName: "Popay3"),UIImage(imageLiteralResourceName: "Popay4"),UIImage(imageLiteralResourceName: "Popay5"),UIImage(imageLiteralResourceName: "Popay6"),UIImage(imageLiteralResourceName: "Popay7")], "Mikky": [UIImage(imageLiteralResourceName: "Mikky1"),UIImage(imageLiteralResourceName: "Mikky2"),UIImage(imageLiteralResourceName: "Mikky3"),UIImage(imageLiteralResourceName: "Mikky4"),UIImage(imageLiteralResourceName: "Mikky5"),UIImage(imageLiteralResourceName: "Mikky6"),UIImage(imageLiteralResourceName: "Mikky7")], "Maikle": [UIImage(imageLiteralResourceName: "Mike1"),UIImage(imageLiteralResourceName: "Mike2"),UIImage(imageLiteralResourceName: "Mike3"),UIImage(imageLiteralResourceName: "Mike4"),UIImage(imageLiteralResourceName: "Mike5")]]
     
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return getArrForTableView(usersArr: users).count
     }
   
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return getArrForTableView(usersArr: users)[section].count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoNameType", for: indexPath) as! PhotoNameCell
         cell.avatar.image = UIImage(imageLiteralResourceName: getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name)
         cell.name.text = getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name
@@ -80,7 +75,7 @@ class FriendsTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let avatarAnimate = tableView.cellForRow(at: indexPath) as? PhotoNameCell else {
             return
         }
@@ -108,7 +103,7 @@ class FriendsTableViewController: UITableViewController {
         })
     }
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: "Delete", handler: {_,_,_ in
             let deleteName = self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name
             var index:Int = 0
@@ -124,7 +119,7 @@ class FriendsTableViewController: UITableViewController {
         return actionConfiguration
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 //        здесь можно сократить код, сли переделать массив в словарь.
         let getArr = getArrForTableView(usersArr: users)[section].first
         let firstName = getArr?.name
@@ -178,7 +173,28 @@ class FriendsTableViewController: UITableViewController {
     }
     */
 
-    
+  
+        
+//        let literalArr = ["a", "b", "c", "d", "e", "f"]
+//        var arrButtonsLiteral: [UIButton] = []
+//        var stackForButtons = UIStackView()
+//
+//        for literal in literalArr {
+//            let button = UIButton()
+//            NSLayoutConstraint.activate([
+//                button.heightAnchor.constraint(equalToConstant: 20),
+//                button.widthAnchor.constraint(equalToConstant: 20),
+//            ])
+//            button.setTitle(literal, for: .normal)
+//            arrButtonsLiteral.append(button)
+//        }
+//        stackForButtons.axis = .vertical
+//        stackForButtons.distribution = .equalCentering
+//        stackForButtons.spacing = 1
+//        stackForButtons = UIStackView(arrangedSubviews: arrButtonsLiteral)
+//        viewForSortLiteral.backgroundColor = UIColor.red
+//        viewForSortLiteral.addSubview(stackForButtons)
+  
     
     
     

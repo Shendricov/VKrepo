@@ -84,5 +84,13 @@ class PhotosViewController: UICollectionViewController {
     
     }
     */
-
+    
+    @IBAction func toTheFullScreenPhotos(_ sender: UIBarButtonItem){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewDestination = storyboard.instantiateViewController(withIdentifier: "FullScreenPhotoViewController") as! FullScreenPhotoViewController
+        viewDestination.photosArrayFullScreen = photosArray
+        self.navigationController?.pushViewController(viewDestination, animated: true)
+    }
+    
+    
 }
