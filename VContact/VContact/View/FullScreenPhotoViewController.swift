@@ -44,14 +44,17 @@ class FullScreenPhotoViewController: UIViewController {
                         self.photoImageView.transform = CATransform3DGetAffineTransform(flippingCoordinateY3D)
                         self.photoImageView.transform = .identity
                     })
-                    self.interactiveAnimator.startAnimation()
+                 self.interactiveAnimator.pauseAnimation()
             
              case .changed:
-                        let swipingProgres = recognizer.translation(in: view).x
-                        print(swipingProgres)
-            //                interactiveAnimator.fractionComplete = swipingProgres.y / 100
+//                       находим ширину экрана.
+//                 let widthScreen = self.view.frame.width
+                 let swipingProgres = recognizer.translation(in: view).x
+//                 let relativelyProgress = swipingProgres / widthScreen
+//                 let persent = max(0, min(1,relativelyProgress))
+//                 interactiveAnimator.fractionComplete = persent
              case .ended:
-               
+                 
                         if indexPhoto < photosArrayFullScreen.count - 1,
                            indexPhoto > 0 {
                             if recognizer.translation(in: view).x < 0 {
@@ -95,6 +98,10 @@ class FullScreenPhotoViewController: UIViewController {
         let viewDestination = storyboard.instantiateViewController(withIdentifier: "SecondFullScreenViewController") as! SecondFullScreenViewController
         viewDestination.photosArrayFullScreen = photosArrayFullScreen
         
+        viewDestination.modalTransitionStyle = .flipHorizontal
+        viewDestination.modalPresentationStyle = .fullScreen
+        
+//        self.present(viewDestination, animated: true)
         self.navigationController?.pushViewController(viewDestination, animated: true)
     }
     

@@ -35,61 +35,59 @@ class SecondFullScreenViewController: UIViewController {
     
     @objc func workWithGestureRecognizer(_ recogniser: UIPanGestureRecognizer) {
         switch recogniser.state {
-            
-        case .began:
-            
-            let swiprWay = recogniser.translation(in: view).x
-            print(recogniser.translation(in: view))
-            
-            if swiprWay < 0 {
-                
-                animator = UIViewPropertyAnimator(duration: 1,
-                                                  curve: .linear,
-                                                  animations: {
-                    self.onScreenImage.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-                    self.behindScreenImage.transform = CGAffineTransform(translationX: -(self.view.frame.width), y: 0)
-                    self.view.bringSubviewToFront(self.behindScreenImage)
-                })
-                animator.pauseAnimation()
-                
-            } else if swiprWay > 0 {
-                self.behindScreenImage.frame = self.onScreenImage.frame
-                self.behindScreenImage.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
-                
-                animator = UIViewPropertyAnimator(duration: 1,
-                                                  curve: .linear,
-                                                  animations: {
-                    self.onScreenImage.transform = CGAffineTransform(translationX: self.view.frame.width , y: 0)
-                    self.behindScreenImage.transform = .identity
-                    self.view.bringSubviewToFront(self.behindScreenImage)
-                })
-                animator.pauseAnimation()
-            }
-            
-        
-        case .changed:
-            print(recogniser.translation(in: view))
-        case .ended:
-
-            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0.5)
-            animator.addCompletion({_ in
-                self.onScreenImage.transform = .identity
-                if self.onScreenImage == self.firstPhotoImageView {
-                    self.onScreenImage = self.secondPhotoImageView
-                    self.behindScreenImage = self.firstPhotoImageView
-                } else {
-                    self.onScreenImage = self.firstPhotoImageView
-                    self.behindScreenImage = self.secondPhotoImageView
+            case .began:
+                let swipeWay = recogniser.translation(in: view).x
+                if swipeWay < 0 {
+                    animator = UIViewPropertyAnimator(duration: 1,
+                                                      curve: .linear,
+                                                      animations: {
+                        self.behindScreenImage.transform = CGAffineTransform(translationX: -(self.view.frame.width), y: 0)
+                        self.onScreenImage.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+                        self.view.bringSubviewToFront(self.behindScreenImage)
+                    })
+                    animator.pauseAnimation()
+                    
+                } else if swipeWay > 0 {
+                    self.behindScreenImage.frame = self.onScreenImage.frame
+                    self.behindScreenImage.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
+                    
+                    animator = UIViewPropertyAnimator(duration: 1,
+                                                      curve: .linear,
+                                                      animations: {
+                        self.onScreenImage.transform = CGAffineTransform(translationX: self.view.frame.width , y: 0)
+                        self.behindScreenImage.transform = CGAffineTransform(scaleX: 1, y: 1)
+                        
+                    })
+                    animator.pauseAnimation()
                 }
+            case .changed:
+                let widthScreen = self.view.frame.width
+                let swipingProgres = recogniser.translation(in: view).x
+                let relativelyProgress = swipingProgres / widthScreen
+                let persent = max(0, min(1,relativelyProgress))
+                animator.fractionComplete = persent
+            
+            case .ended:
+
+                animator.continueAnimation(withTimingParameters: nil, durationFactor: 0.5)
+                animator.addCompletion({_ in
+                    self.onScreenImage.transform = .identity
+                    if self.onScreenImage == self.firstPhotoImageView {
+                        self.onScreenImage = self.secondPhotoImageView
+                        self.behindScreenImage = self.firstPhotoImageView
+                    } else {
+                        self.onScreenImage = self.firstPhotoImageView
+                        self.behindScreenImage = self.secondPhotoImageView
+                    }
+                    
+                    self.getStartPositionImage()
+                })
                 
-                self.getStartPositionImage()
-            })
-            
-            
-            
-        default:
-            break
-        }
+                
+                
+            default:
+                break
+            }
        
     }
     
