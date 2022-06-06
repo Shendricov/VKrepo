@@ -561,7 +561,7 @@
         <!--SuperFriends-->
         <scene sceneID="UPc-oS-8HN">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Y6Q-5Q-zb4" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Y6Q-5Q-zb4" customClass="CustomNavigationController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="SuperFriends" image="person.fill" catalog="system" id="FmD-na-i5a"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="6GT-cN-oYL">
