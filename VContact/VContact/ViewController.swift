@@ -7,15 +7,6 @@
 
 import UIKit
 
-class Session {
-    private init() { }
-    
-    static let user = Session()
-    
-    var token: String = " "
-    var userID: Int = 0
-}
-
 class ViewController: UIViewController {
 
     @IBOutlet var loginTextField: UITextField!

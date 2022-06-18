@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uQH-Cb-NKf">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -121,14 +121,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1960.8695652173915" y="138.61607142857142"/>
+            <point key="canvasLocation" x="1961" y="-652"/>
         </scene>
         <!--Группы пользователя-->
         <scene sceneID="DHn-rZ-8Z9">
             <objects>
                 <tableViewController id="Ad7-et-sz1" customClass="UserGroupsTableViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="MQX-bI-ujf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
                             <outlet property="dataSource" destination="Ad7-et-sz1" id="ID5-KU-NGc"/>
@@ -138,7 +138,7 @@
                     <navigationItem key="navigationItem" title="Группы пользователя" largeTitleDisplayMode="always" id="3cL-ps-WDw">
                         <barButtonItem key="leftBarButtonItem" title="&lt; Logo out" id="A5W-1c-Vgl">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="mFA-UG-I2v"/>
+                                <segue destination="uQH-Cb-NKf" kind="presentation" modalPresentationStyle="fullScreen" id="GeH-Dr-Cdo"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Serch group" id="kJy-2L-zd7">
@@ -160,7 +160,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AllGroupsTableViewController" id="gl4-OZ-14o" customClass="AllGroupsTableViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="mVS-ap-iC2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <connections>
@@ -180,12 +180,48 @@
             </objects>
             <point key="canvasLocation" x="5458" y="865"/>
         </scene>
+        <!--Web Start View Controller-->
+        <scene sceneID="BwZ-xj-H3R">
+            <objects>
+                <viewController id="uQH-Cb-NKf" customClass="WebStartViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gu2-px-g5D">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9u-hr-eGs">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7Xo-oO-8BX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7Xo-oO-8BX" firstAttribute="bottom" secondItem="d9u-hr-eGs" secondAttribute="bottom" constant="-34" id="LMK-Vs-9re"/>
+                            <constraint firstItem="d9u-hr-eGs" firstAttribute="top" secondItem="7Xo-oO-8BX" secondAttribute="top" constant="-44" id="O1e-QM-oBP"/>
+                            <constraint firstItem="d9u-hr-eGs" firstAttribute="leading" secondItem="7Xo-oO-8BX" secondAttribute="leading" id="fOv-qx-umT"/>
+                            <constraint firstItem="7Xo-oO-8BX" firstAttribute="trailing" secondItem="d9u-hr-eGs" secondAttribute="trailing" id="u1E-cA-Xkd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hBr-80-Wec"/>
+                    <connections>
+                        <outlet property="webView" destination="d9u-hr-eGs" id="bFi-cG-d3j"/>
+                        <segue destination="Gqb-f7-8Hp" kind="presentation" identifier="segueAfterRegistration" id="vwq-tf-CvY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YVN-hb-b2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1961" y="139"/>
+        </scene>
         <!--News-->
         <scene sceneID="0XI-A5-SC5">
             <objects>
                 <tableViewController id="1aP-Vp-hr1" customClass="NewsTableViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="8zh-Sw-DQc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -316,18 +352,18 @@
             <objects>
                 <viewController id="33f-D6-PW0" customClass="FriendsViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zbl-LN-X94">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4pP-y9-un1">
-                                <rect key="frame" x="0.0" y="88" width="382" height="725"/>
+                                <rect key="frame" x="0.0" y="56" width="382" height="757"/>
                                 <connections>
                                     <outlet property="dataSource" destination="33f-D6-PW0" id="Prj-8b-Urg"/>
                                     <outlet property="delegate" destination="33f-D6-PW0" id="FEr-EL-t4w"/>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEu-s6-hg1">
-                                <rect key="frame" x="394" y="88" width="20" height="725"/>
+                                <rect key="frame" x="394" y="56" width="20" height="757"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="E1U-03-j64"/>
@@ -352,7 +388,7 @@
                     <navigationItem key="navigationItem" title="Friends" largeTitleDisplayMode="always" id="iEt-Yn-SPI">
                         <barButtonItem key="leftBarButtonItem" title="&lt; Logo out" id="1TR-9c-YkV">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="lFc-Vv-ajZ"/>
+                                <segue destination="uQH-Cb-NKf" kind="presentation" modalPresentationStyle="fullScreen" id="9qF-33-Inc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -546,7 +582,7 @@
                     <tabBarItem key="tabBarItem" title="Groups" image="person.2" catalog="system" id="5Cg-lU-gEk"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="EvQ-HJ-krN">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -565,7 +601,7 @@
                     <tabBarItem key="tabBarItem" title="SuperFriends" image="person.fill" catalog="system" id="FmD-na-i5a"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="6GT-cN-oYL">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -579,7 +615,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lFc-Vv-ajZ"/>
+        <segue reference="vwq-tf-CvY"/>
+        <segue reference="9qF-33-Inc"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Mikky" width="197" height="255"/>
