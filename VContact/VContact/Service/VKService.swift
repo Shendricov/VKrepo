@@ -40,7 +40,10 @@ class VKService {
             extraQueryItem = URLQueryItem(name: "fields", value: "first_name")
         } else if requestMethod == .getGroups {
             extraQueryItem = URLQueryItem(name: "extended", value:  "1")
+        } else if requestMethod == .photo {
+            extraQueryItem = URLQueryItem(name: "album_id", value:  "wall")
         }
+        
         url.queryItems?.append(extraQueryItem)
         return url
     }

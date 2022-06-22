@@ -128,7 +128,7 @@
             <objects>
                 <tableViewController id="Ad7-et-sz1" customClass="UserGroupsTableViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="MQX-bI-ujf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
                             <outlet property="dataSource" destination="Ad7-et-sz1" id="ID5-KU-NGc"/>
@@ -160,7 +160,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AllGroupsTableViewController" id="gl4-OZ-14o" customClass="AllGroupsTableViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="mVS-ap-iC2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <connections>
@@ -209,7 +209,7 @@
                     <navigationItem key="navigationItem" id="hBr-80-Wec"/>
                     <connections>
                         <outlet property="webView" destination="d9u-hr-eGs" id="bFi-cG-d3j"/>
-                        <segue destination="Gqb-f7-8Hp" kind="presentation" identifier="segueAfterRegistration" id="vwq-tf-CvY"/>
+                        <segue destination="Gqb-f7-8Hp" kind="presentation" identifier="segueAfterRegistration" modalPresentationStyle="fullScreen" id="vwq-tf-CvY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVN-hb-b2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -221,7 +221,7 @@
             <objects>
                 <tableViewController id="1aP-Vp-hr1" customClass="NewsTableViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="8zh-Sw-DQc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -352,18 +352,18 @@
             <objects>
                 <viewController id="33f-D6-PW0" customClass="FriendsViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zbl-LN-X94">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4pP-y9-un1">
-                                <rect key="frame" x="0.0" y="56" width="382" height="757"/>
+                                <rect key="frame" x="0.0" y="140" width="382" height="673"/>
                                 <connections>
                                     <outlet property="dataSource" destination="33f-D6-PW0" id="Prj-8b-Urg"/>
                                     <outlet property="delegate" destination="33f-D6-PW0" id="FEr-EL-t4w"/>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEu-s6-hg1">
-                                <rect key="frame" x="394" y="56" width="20" height="757"/>
+                                <rect key="frame" x="394" y="140" width="20" height="673"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="E1U-03-j64"/>
@@ -582,7 +582,7 @@
                     <tabBarItem key="tabBarItem" title="Groups" image="person.2" catalog="system" id="5Cg-lU-gEk"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="EvQ-HJ-krN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -601,7 +601,7 @@
                     <tabBarItem key="tabBarItem" title="SuperFriends" image="person.fill" catalog="system" id="FmD-na-i5a"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="6GT-cN-oYL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -621,13 +621,13 @@
     <resources>
         <image name="Mikky" width="197" height="255"/>
         <image name="Popay" width="159" height="318"/>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="circle.fill" catalog="system" width="32" height="32"/>
+        <image name="heart" catalog="system" width="32" height="32"/>
         <image name="logoVK-1" width="183" height="163"/>
-        <image name="newspaper" catalog="system" width="128" height="111"/>
-        <image name="person.2" catalog="system" width="128" height="81"/>
-        <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="scribble.variable" catalog="system" width="128" height="118"/>
+        <image name="newspaper" catalog="system" width="32" height="32"/>
+        <image name="person.2" catalog="system" width="32" height="32"/>
+        <image name="person.fill" catalog="system" width="32" height="32"/>
+        <image name="scribble.variable" catalog="system" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
