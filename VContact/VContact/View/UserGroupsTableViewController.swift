@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol chengeUserGroups {
     func chengeUserGroups()
@@ -13,12 +14,23 @@ protocol chengeUserGroups {
 
 class UserGroupsTableViewController: UITableViewController {
 
+    var groupsArray: Array<GroupsResponse> = []
     var allGroups: Array<Group> = [Group(title: "KiteSerfing"), Group(title: "Cosmos"),Group(title: "Programming", selected: true),Group(title: "Serfing", selected: true),Group(title: "Formula1")]
     var userGroups: Array<Group> = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let url = VKService().getURL(requestMethod: .getGroups)
+        Alamofire.request(url).responseJSON(completionHandler: {data in 
+            guard let data = data.data else { return }
+            let groups = try? JSONDecoder().decode(GroupsResponse.self, from: data)
+            self.groupsArray = groups?.response.items as! Array<GroupsResponse>
+            
+        })
+        
+        
         let cellNibType = UINib(nibName: "PhotoNameCell", bundle: nil)
         tableView.register(cellNibType, forCellReuseIdentifier: "PhotoNameType")
         // Uncomment the following line to preserve selection between presentations

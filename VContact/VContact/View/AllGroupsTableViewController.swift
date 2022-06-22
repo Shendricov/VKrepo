@@ -27,7 +27,7 @@ class AllGroupsTableViewController: UITableViewController {
         super.viewDidLoad()
         let nibTypeCell = UINib(nibName: "PhotoNameCell", bundle: nil)
         tableView.register(nibTypeCell, forCellReuseIdentifier: "PhotoNameType")
-        print(allGroupsChoose)
+        
 //  результат поиска будет получать текущий класс.
         searchController.searchResultsUpdater = self
 //  позволит взаимодействовать с элементами, полученными в результате поиска.

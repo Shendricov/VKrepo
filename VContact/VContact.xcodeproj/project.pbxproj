@@ -17,6 +17,7 @@
 		307A05A42828F0C60060694A /* UserAndGroupShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A05A32828F0C60060694A /* UserAndGroupShape.swift */; };
 		307A05A628295C300060694A /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A05A528295C300060694A /* PhotosViewController.swift */; };
 		307A05A828295C560060694A /* PhotosViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A05A728295C560060694A /* PhotosViewCell.swift */; };
+		30B5A4E8285DF91000F865B3 /* CustomClassForAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B5A4E7285DF91000F865B3 /* CustomClassForAPI.swift */; };
 		30C44D87282BDE4B00BC612B /* AllGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C44D86282BDE4B00BC612B /* AllGroupsTableViewController.swift */; };
 		30F72E4B28438DCA00541C66 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F72E4A28438DCA00541C66 /* FriendsViewController.swift */; };
 		30F72E4F2847839F00541C66 /* SecondFullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F72E4E2847839F00541C66 /* SecondFullScreenViewController.swift */; };
@@ -51,6 +52,7 @@
 		307A05A32828F0C60060694A /* UserAndGroupShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAndGroupShape.swift; sourceTree = "<group>"; };
 		307A05A528295C300060694A /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		307A05A728295C560060694A /* PhotosViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewCell.swift; sourceTree = "<group>"; };
+		30B5A4E7285DF91000F865B3 /* CustomClassForAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomClassForAPI.swift; sourceTree = "<group>"; };
 		30C44D86282BDE4B00BC612B /* AllGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsTableViewController.swift; sourceTree = "<group>"; };
 		30F72E4A28438DCA00541C66 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		30F72E4E2847839F00541C66 /* SecondFullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondFullScreenViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				3E34FD892858141600526293 /* Session.swift */,
+				30B5A4E7285DF91000F865B3 /* CustomClassForAPI.swift */,
 				3E99F7FC28597E4000179435 /* VKService.swift */,
 			);
 			path = Service;
@@ -344,6 +347,7 @@
 				3E99F7FD28597E4000179435 /* VKService.swift in Sources */,
 				3ED76D69281B8FC900F24DE4 /* ViewController.swift in Sources */,
 				307A059D2828ED4E0060694A /* PhotoNameCell.swift in Sources */,
+				30B5A4E8285DF91000F865B3 /* CustomClassForAPI.swift in Sources */,
 				3E6582B8283B551A008F7502 /* NewsTableViewCell.swift in Sources */,
 				3000498C282A4A6F001A1455 /* UserGroupsTableViewController.swift in Sources */,
 				3E8810902846FD5700AEF02C /* FullScreenPhotoViewController.swift in Sources */,

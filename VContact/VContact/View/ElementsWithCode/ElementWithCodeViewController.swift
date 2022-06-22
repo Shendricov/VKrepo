@@ -81,7 +81,6 @@ extension ElementWithCodeViewController {
         scrollView.addSubview(passwordTextField)
         scrollView.addSubview(buttonLogin)
         scrollView.subviews.forEach({element in
-            print("Scroll View имеет следующие элементы: \(element.description)")
         })
         
         view.addSubview(scrollView)
@@ -99,7 +98,6 @@ extension ElementWithCodeViewController {
             scrollView.leftAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
-        print("Scroll иеет слудующий frame: \(scrollView.frame)")
         
         NSLayoutConstraint.activate([
             imageLogo.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
@@ -108,7 +106,6 @@ extension ElementWithCodeViewController {
             imageLogo.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
             
         ])
-        print("Image иеет слудующий frame: \(imageLogo.frame)")
         
         NSLayoutConstraint.activate([
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),

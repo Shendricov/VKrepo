@@ -30,7 +30,7 @@ class SecondFullScreenViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getStartPositionImage()
-        print(view.safeAreaInsets)
+    
     }
     
     @objc func workWithGestureRecognizer(_ recogniser: UIPanGestureRecognizer) {

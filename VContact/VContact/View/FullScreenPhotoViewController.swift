@@ -25,7 +25,6 @@ class FullScreenPhotoViewController: UIViewController {
   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print (photosArrayFullScreen.count)
     }
     
     var photosArrayFullScreen = [UIImage(imageLiteralResourceName: "Popay1"), UIImage(imageLiteralResourceName: "Popay2"),UIImage(imageLiteralResourceName: "Popay3"),UIImage(imageLiteralResourceName: "Popay4"),UIImage(imageLiteralResourceName: "Popay5"),UIImage(imageLiteralResourceName: "Popay6"),UIImage(imageLiteralResourceName: "Popay7")]

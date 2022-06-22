@@ -6,18 +6,45 @@
 //
 
 import UIKit
-
+import Alamofire
 private let reuseIdentifier = "Cell"
 
 class PhotosViewController: UICollectionViewController {
-
+    
+    var photosArrayFromAPI: Array<PhotosResponse> = [] {
+        didSet {
+            for photo in photosArrayFromAPI {
+                print("""
+\(photo)
+""")
+            }
+        }
+    }
     var photosArray: Array<UIImage> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        let url = VKService().getURL(requestMethod: .photo)
+        Alamofire.request(url).responseJSON(completionHandler: {data in
+            guard let data = data.data else { return }
+            let photos = try? JSONDecoder().decode(PhotosResponse.self, from: data)
+            guard let result = photos else {
+               print("Error: check class PhotosResponse")
+                return
+            }
+            for photo in result.response.items {
+                
+                print("""
+                      Фотографии
+                      owner: \(photo.owner_id)
+                      id_ photo: \(photo.id)
+                      url_photo:\(photo.url)
+                      """)
+                
+            }
+//            self.photosArrayFromAPI = photos?.response.items  as! Array<PhotosResponse>
+        })
 
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)

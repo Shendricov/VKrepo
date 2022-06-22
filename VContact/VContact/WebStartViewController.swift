@@ -7,7 +7,7 @@
 
 import UIKit
 import WebKit
-
+import Alamofire
 
 class WebStartViewController: UIViewController, WKNavigationDelegate {
 
@@ -38,16 +38,14 @@ class WebStartViewController: UIViewController, WKNavigationDelegate {
             }
         
             let token = params["access_token"]
+        print("ТОКЕН РАВЕН: \(token)")
         Session.user.token = token!
        
             decisionHandler(.cancel)
         
-        let myRequest = VKService()
-        myRequest.quertyURLSession(method: .friends)
-        myRequest.quertyURLSession(method: .getGroups)
-        myRequest.quertyURLSession(method: .photo)
-         print("*********")
-        myRequest.quertyURLSession(method: .searchGroup)
+//        myRequest.quertyURLSession(method: .getGroups)
+//        myRequest.quertyURLSession(method: .photo)
+//        myRequest.getAlamofireResponse(method: .getGroups)
         
         
         performSegue(withIdentifier: "segueAfterRegistration", sender: nil)
@@ -68,7 +66,7 @@ class WebStartViewController: UIViewController, WKNavigationDelegate {
         urlComponents.path = "/authorize"
         urlComponents.queryItems = [
 //  индентификатор приложения.
-            URLQueryItem(name: "client_id", value: String(Session.user.userID)),
+            URLQueryItem(name: "client_id", value: Session.user.userID),
 //  указываем тип отображения страницы авторизации:
 //            page - авторизация в отдельном окне.
 //            popup - авторизация в всплывающем окне.

@@ -44,8 +44,6 @@ class CustomNavigationController: UINavigationController, UINavigationController
     }
     
     @objc func handlePanScreenAdge (_ recognize: UIScreenEdgePanGestureRecognizer) {
-        print(" Смахивание работает")
-        
         
         switch recognize.state {
         case .began:

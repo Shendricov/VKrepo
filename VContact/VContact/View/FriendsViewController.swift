@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class FriendsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var tableView: UITableView!
@@ -13,6 +14,14 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let url = VKService().getURL(requestMethod: .friends)
+        Alamofire.request(url).responseJSON(completionHandler: {data in 
+            guard let data = data.data else { return }
+            let friends = try? JSONDecoder().decode(FriendsResponse.self, from: data)
+            self.friendsArray = friends?.response.items  as! Array<FriendsResponse>
+        })
+        
         let cellTypeNib = UINib(nibName: "PhotoNameCell", bundle: nil)
         tableView.register(cellTypeNib, forCellReuseIdentifier: "PhotoNameType")
         // Do any additional setup after loading the view.
@@ -25,6 +34,8 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
 
     // MARK: - Table view data source
 
+    var friendsArray: Array<FriendsResponse> = []
+    
     var users: Array<User> = [User(name: "Mikky"), User(name: "Chapoklyak"), User(name: "Popay"), User(name: "Cheburashka"), User(name: "Maikle")] { didSet {
         users.sort(by: {one, two in one.name < two.name})
         
@@ -71,7 +82,6 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.name.text = getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name
         cell.selectionStyle = .blue
         cell.accessoryType = .disclosureIndicator
-        print("Координаты ячейчи следующие: \(indexPath)")
         return cell
     }
     
