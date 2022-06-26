@@ -15,11 +15,10 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = VKService().getURL(requestMethod: .friends)
-        Alamofire.request(url).responseJSON(completionHandler: {data in 
-            guard let data = data.data else { return }
-            let friends = try? JSONDecoder().decode(FriendsResponse.self, from: data)
-            self.friendsArray = friends?.response.items  as! Array<FriendsResponse>
+        let service = VKService()
+        service.getCollectionFriends(completion: {[weak self] friends in
+            self?.friendsArray = friends
+            self?.tableView.reloadData()
         })
         
         let cellTypeNib = UINib(nibName: "PhotoNameCell", bundle: nil)
@@ -34,7 +33,11 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
 
     // MARK: - Table view data source
 
-    var friendsArray: Array<FriendsResponse> = []
+    var friendsArray: Array<Friends> = [] {
+        didSet {
+            friendsArray.sort(by: {($0.first_name < $1.first_name)})
+        }
+    }
     
     var users: Array<User> = [User(name: "Mikky"), User(name: "Chapoklyak"), User(name: "Popay"), User(name: "Cheburashka"), User(name: "Maikle")] { didSet {
         users.sort(by: {one, two in one.name < two.name})
@@ -43,20 +46,19 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     
-    private func getArrForTableView(usersArr: [User]) -> [[User]] {
-        users.sort(by: {one, two in one.name < two.name})
-        var result:[[User]] = []
+    private func getArrForTableView(usersArr: [Friends]) -> [[Friends]] {
+        var result:[[Friends]] = []
         var sectionsOfLetters: [Character] = []
         usersArr.forEach({ user in
-            let letter = user.name.first!
+            let letter = user.first_name.first!
             if !sectionsOfLetters.contains(letter) {
                 sectionsOfLetters.append(letter)
             }
         })
         sectionsOfLetters.forEach({ letter in
-            var tempuraryArr:[User] = []
-            for user in users {
-                if user.name.first == letter {
+            var tempuraryArr:[Friends] = []
+            for user in friendsArray {
+                if user.first_name.first == letter {
                     tempuraryArr.append(user)
                 }
             }
@@ -69,17 +71,18 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return getArrForTableView(usersArr: users).count
+        return getArrForTableView(usersArr: friendsArray).count
     }
   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return getArrForTableView(usersArr: users)[section].count
+        return getArrForTableView(usersArr: friendsArray)[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoNameType", for: indexPath) as! PhotoNameCell
-        cell.avatar.image = UIImage(imageLiteralResourceName: getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name)
-        cell.name.text = getArrForTableView(usersArr: users)[indexPath.section][indexPath.row].name
+        cell.avatar.image = UIImage(imageLiteralResourceName:"Mikky")
+        cell.first_name.text = getArrForTableView(usersArr: friendsArray)[indexPath.section][indexPath.row].first_name
+        cell.last_name.text = getArrForTableView(usersArr: friendsArray)[indexPath.section][indexPath.row].last_name
         cell.selectionStyle = .blue
         cell.accessoryType = .disclosureIndicator
         return cell
@@ -104,35 +107,35 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
                        completion: {_ in
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewDestination = storyboard.instantiateViewController(withIdentifier: "PhotoFriendsScene") as! PhotosViewController
-            viewDestination.title = self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name
-            if let userPhotos = self.usersPhotoStorage[self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name] {
-                viewDestination.photosArray = userPhotos
-            }
+//            viewDestination.title = self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name
+//            if let userPhotos = self.usersPhotoStorage[self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name] {
+//            viewDestination.photosArray = self.usersPhotoStorage["Mikky"]!
+//            }
             self.navigationController?.pushViewController(viewDestination, animated: true)
             
         })
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "Delete", handler: {_,_,_ in
-            let deleteName = self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name
-            var index:Int = 0
-            self.users.forEach({user in
-                if user.name == deleteName {
-                    self.users.remove(at: index)
-                }
-                index += 1
-            })
-            tableView.reloadData()
-        })
-        let actionConfiguration = UISwipeActionsConfiguration(actions: [action])
-        return actionConfiguration
-    }
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let action = UIContextualAction(style: .destructive, title: "Delete", handler: {_,_,_ in
+//            let deleteName = self.getArrForTableView(usersArr: self.users)[indexPath.section][indexPath.row].name
+//            var index:Int = 0
+//            self.users.forEach({user in
+//                if user.name == deleteName {
+//                    self.users.remove(at: index)
+//                }
+//                index += 1
+//            })
+//            tableView.reloadData()
+//        })
+//        let actionConfiguration = UISwipeActionsConfiguration(actions: [action])
+//        return actionConfiguration
+//    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 //        здесь можно сократить код, сли переделать массив в словарь.
-        let getArr = getArrForTableView(usersArr: users)[section].first
-        let firstName = getArr?.name
+        let getArr = getArrForTableView(usersArr: friendsArray)[section].first
+        let firstName = getArr?.first_name
         let sectionLetter = firstName?.first
         return sectionLetter?.description
     }

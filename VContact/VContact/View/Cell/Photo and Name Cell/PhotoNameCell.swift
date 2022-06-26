@@ -13,7 +13,8 @@ class PhotoNameCell: UITableViewCell {
     @IBOutlet weak var rootView: UIView!
     @IBOutlet var avatarShadow: UIView!
     @IBOutlet weak var avatar: UIImageView!
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var first_name: UILabel!
+    @IBOutlet weak var last_name: UILabel!
     let subViewAvatar = UIView()
     override func awakeFromNib() {
         super.awakeFromNib()

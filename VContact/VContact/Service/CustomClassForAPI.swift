@@ -6,20 +6,20 @@
 //
 
 import Foundation
-
+import RealmSwift
 //MARK: Class for Friends
 class FriendsResponse: Decodable {
-    let response: ListsFriendsResponse
+     var response: ListsFriendsResponse
 }
 
 class ListsFriendsResponse: Decodable {
     var items: [Friends]
 }
 
-class Friends: Decodable {
-    var id: Int = 0
-    var first_name: String = ""
-    var last_name: String = ""
+class Friends: Object, Decodable {
+    @Persisted var id: Int = 0
+    @Persisted var first_name: String = ""
+    @Persisted var last_name: String = ""
 }
 
 //MARK: Class for Groups
@@ -32,11 +32,16 @@ class ListsGroupsResponce: Decodable {
     let items: [Groups]
 }
 
-class Groups: Decodable {
-    var id: Int = 0
-    var name: String = ""
-}
+class Groups: Object, Decodable {
+    @Persisted var id: Int = 0
+    @Persisted var titles: String = ""
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case titles = "name"
 
+    }
+}
 //MARK: Class for Photos
 
 class PhotosResponse: Decodable {
@@ -47,10 +52,10 @@ class ItemsPhotoResponse: Decodable{
     let items: [Photos]
 }
 
-class Photos: Decodable {
-    var id: Int = 0
-    var owner_id: Int = 0
-    var url: String = ""
+class Photos: Object, Decodable {
+    @Persisted var id: Int = 0
+    @Persisted var owner_id: Int = 0
+    @Persisted var url: String = ""
     
     enum CodKeys: String, CodingKey {
         case id

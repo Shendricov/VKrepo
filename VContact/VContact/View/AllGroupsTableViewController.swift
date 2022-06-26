@@ -74,8 +74,8 @@ class AllGroupsTableViewController: UITableViewController {
             currentGroup = allGroupsChoose[indexPath.row]
         }
         
-        cell.name.text = currentGroup.title
-        cell.avatar.image = UIImage(imageLiteralResourceName: "Groups/\(currentGroup.title)")
+        cell.first_name.text = currentGroup.title
+        cell.avatar.image = UIImage(imageLiteralResourceName: "Groups/Formula1")
         if currentGroup.selected {
             cell.accessoryType = .checkmark
         } else {

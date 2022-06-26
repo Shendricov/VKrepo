@@ -14,21 +14,23 @@ protocol chengeUserGroups {
 
 class UserGroupsTableViewController: UITableViewController {
 
-    var groupsArray: Array<GroupsResponse> = []
+    var groupsArray: Array<Groups> = []
     var allGroups: Array<Group> = [Group(title: "KiteSerfing"), Group(title: "Cosmos"),Group(title: "Programming", selected: true),Group(title: "Serfing", selected: true),Group(title: "Formula1")]
     var userGroups: Array<Group> = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let url = VKService().getURL(requestMethod: .getGroups)
-        Alamofire.request(url).responseJSON(completionHandler: {data in 
-            guard let data = data.data else { return }
-            let groups = try? JSONDecoder().decode(GroupsResponse.self, from: data)
-            self.groupsArray = groups?.response.items as! Array<GroupsResponse>
+      
+        let session = VKService()
+        session.getCollectionGroups(completion: {[weak self] groups in
+            for group in groups {
+                self!.allGroups.append(Group(title: group.titles, selected: false))
+            }
             
+            self?.tableView.reloadData()
         })
+      
         
         
         let cellNibType = UINib(nibName: "PhotoNameCell", bundle: nil)
@@ -68,8 +70,8 @@ class UserGroupsTableViewController: UITableViewController {
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoNameType", for: indexPath) as! PhotoNameCell
-        cell.name.text = userGroups[indexPath.row].title
-        cell.avatar.image = UIImage(imageLiteralResourceName: "Groups/\(userGroups[indexPath.row].title)")
+        cell.first_name.text = userGroups[indexPath.row].title
+        cell.avatar.image = UIImage(imageLiteralResourceName: "Groups/Formula1")
 
         return cell
     }
