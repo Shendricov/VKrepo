@@ -7,20 +7,27 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
+
 private let reuseIdentifier = "Cell"
 
 class PhotosViewController: UICollectionViewController {
     
-    var photosArrayFromAPI: Array<Photos> = []
-    var photosArray: Array<UIImage> = []
+//    var photosArrayFromAPI: Array<Photos> = []
+    var loadedPhotos: [Photos] = []
+    var photosArray: Array<UIImageView> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
        let service = VKService()
-        service.getCollectionPhotos(completion: {[weak self] photos in
-            self?.photosArray = photos
-            self?.collectionView.reloadData()
+        
+        service.getCollectionPhotos(completion: {[weak self] in
+            self?.loadData()
+            service.getImageViewPhoto(photos: self!.loadedPhotos, complation: {image in
+                self?.photosArray = image
+                self?.collectionView.reloadData()
+            })
         })
         
         // Register cell classes
@@ -54,7 +61,7 @@ class PhotosViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "friendPhotoCell", for: indexPath) as! PhotosViewCell
-        cell.photoImage.image = photosArray[indexPath.row]
+        cell.photoImage.image = photosArray[indexPath.row].image
         return cell
     }
 
@@ -96,5 +103,14 @@ class PhotosViewController: UICollectionViewController {
         self.navigationController?.pushViewController(viewDestination, animated: true)
     }
     
+    func loadData() {
+        do {
+        let realm = try Realm()
+        let photos = realm.objects(Photos.self)
+            self.loadedPhotos = Array(photos)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
     
 }

@@ -20,6 +20,10 @@ class Friends: Object, Decodable {
     @Persisted var id: Int = 0
     @Persisted var first_name: String = ""
     @Persisted var last_name: String = ""
+    
+//    override static func primaryKey() -> String? {
+//        return "id"
+//    }
 }
 
 //MARK: Class for Groups
@@ -75,5 +79,22 @@ class Photos: Object, Decodable {
         var sizesContainer = try container.nestedUnkeyedContainer(forKey: .sizes)
         let firstSizes = try sizesContainer.nestedContainer(keyedBy: SizeCodKeys.self)
         self.url = try firstSizes.decode(String.self, forKey: .url)
+    }
+}
+
+//MARK: User with avatar image
+
+class UserWithAvatarResponse: Decodable{
+    let response: [UserWithAvatar]
+}
+
+class UserWithAvatar: Decodable {
+    var first_name: String = ""
+    var last_name: String = ""
+    var urlPhoto: String = ""
+    
+    enum KeyCod: String, CodingKey {
+        case first_name, last_name
+        case urlPhoto = "photo_50"
     }
 }

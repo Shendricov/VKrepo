@@ -16,7 +16,7 @@ class FullScreenPhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        photoImageView.image = photosArrayFullScreen[0]
+        photoImageView.image = photosArrayFullScreen[0].image
         
         let panGestureRecognise = UIPanGestureRecognizer(target: self, action: #selector(workGestureRecognize(_:)))
         self.view.addGestureRecognizer(panGestureRecognise)
@@ -27,7 +27,7 @@ class FullScreenPhotoViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    var photosArrayFullScreen = [UIImage(imageLiteralResourceName: "Popay1"), UIImage(imageLiteralResourceName: "Popay2"),UIImage(imageLiteralResourceName: "Popay3"),UIImage(imageLiteralResourceName: "Popay4"),UIImage(imageLiteralResourceName: "Popay5"),UIImage(imageLiteralResourceName: "Popay6"),UIImage(imageLiteralResourceName: "Popay7")]
+    var photosArrayFullScreen: [UIImageView] = []
     
    
     
@@ -71,7 +71,7 @@ class FullScreenPhotoViewController: UIViewController {
                             indexPhoto = 0
                         }
                         
-                 self.photoImageView.image = self.photosArrayFullScreen[indexPhoto]
+                 self.photoImageView.image = self.photosArrayFullScreen[indexPhoto].image
                  self.interactiveAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 0.5)
                     
              default:
@@ -99,8 +99,7 @@ class FullScreenPhotoViewController: UIViewController {
         
         viewDestination.modalTransitionStyle = .flipHorizontal
         viewDestination.modalPresentationStyle = .fullScreen
-        
-//        self.present(viewDestination, animated: true)
+    
         self.navigationController?.pushViewController(viewDestination, animated: true)
     }
     

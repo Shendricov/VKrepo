@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
 
 class FriendsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var tableView: UITableView!
@@ -16,8 +17,8 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         
         let service = VKService()
-        service.getCollectionFriends(completion: {[weak self] friends in
-            self?.friendsArray = friends
+        service.getFriends(completion: {[weak self] in
+            self?.loadData()
             self?.tableView.reloadData()
         })
         
@@ -33,15 +34,29 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
 
     // MARK: - Table view data source
 
+    func loadData() {
+        do {
+            let realm = try Realm()
+            let friends = realm.objects(Friends.self)
+            self.friendsArray = Array(friends)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
     var friendsArray: Array<Friends> = [] {
         didSet {
             friendsArray.sort(by: {($0.first_name < $1.first_name)})
         }
     }
     
-    var users: Array<User> = [User(name: "Mikky"), User(name: "Chapoklyak"), User(name: "Popay"), User(name: "Cheburashka"), User(name: "Maikle")] { didSet {
-        users.sort(by: {one, two in one.name < two.name})
-        
+    
+    
+    
+    var users: Array<UserWithAvatar> = [] {
+        didSet {
+        users.sort(by: {one, two in one.first_name < two.first_name})
         }
     }
     
@@ -80,7 +95,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoNameType", for: indexPath) as! PhotoNameCell
-        cell.avatar.image = UIImage(imageLiteralResourceName:"Mikky")
+        cell.avatar.image = UIImage(imageLiteralResourceName: "Mikky")
         cell.first_name.text = getArrForTableView(usersArr: friendsArray)[indexPath.section][indexPath.row].first_name
         cell.last_name.text = getArrForTableView(usersArr: friendsArray)[indexPath.section][indexPath.row].last_name
         cell.selectionStyle = .blue

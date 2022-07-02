@@ -12,7 +12,7 @@ class SecondFullScreenViewController: UIViewController {
     @IBOutlet var firstPhotoImageView: UIImageView!
     @IBOutlet var secondPhotoImageView: UIImageView!
     
-    var photosArrayFullScreen: Array<UIImage> = []
+    var photosArrayFullScreen: Array<UIImageView> = []
     
     private var animator: UIViewPropertyAnimator!
     

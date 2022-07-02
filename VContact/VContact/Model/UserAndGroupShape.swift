@@ -9,14 +9,17 @@ import Foundation
 import UIKit
 
 protocol UserProtocol {
-    var name: String { get set }
+    var first_name: String { get set }
+    var last_name: String { get set }
+    var avatar: UIImageView { get set }
 //    var avatar: UIImage { get set }
 //    var photos: [UIImage] { get set }
 }
 
 struct User: UserProtocol,Equatable {
-    var name: String
-//    var avatar: UIImage
+    var first_name: String
+    var last_name: String
+    var avatar: UIImageView
 //    var photos: [UIImage]
     
 }

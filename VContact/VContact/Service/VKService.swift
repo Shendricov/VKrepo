@@ -7,6 +7,9 @@
 
 import Foundation
 import Alamofire
+import Kingfisher
+import RealmSwift
+import UIKit
 
 class VKService {
 
@@ -14,8 +17,8 @@ class VKService {
         case friends = "/method/friends.get"
         case photo = "/method/photos.get"
         case getGroups = "/method/groups.get"
-//        case searchGroup = "/method/groups.search"
-//        case user = "/method/users.get"
+        case searchGroup = "/method/groups.search"
+        case user = "/method/users.get"
     }
     
     
@@ -31,8 +34,8 @@ class VKService {
         url.scheme = "https"
         url.host = "api.vk.com"
         url.path =  requestMethod.rawValue
-        url.queryItems = [URLQueryItem(name: "user_id", value: Session.user.userID),
-                          URLQueryItem(name: "v", value: "5.81"),
+        url.queryItems = [URLQueryItem(name: "user-id", value: Session.user.userID),
+                          URLQueryItem(name: "v", value: "5.131"),
                           URLQueryItem(name: "access_token", value: Session.user.token)]
         var extraQueryItem = URLQueryItem(name: "", value: "")
         if requestMethod == .friends {
@@ -45,55 +48,139 @@ class VKService {
         url.queryItems?.append(extraQueryItem)
         return url
     }
+//    MARK: Получаем и обрабатываем данные для сцены Friends.
     
-    func getCollectionFriends(completion: @escaping ([Friends]) -> Void) {
+    func saveFriendsData(friends: [Friends]) {
+        do {
+//            MARK: Удалить при размещении
+            var configuration = Realm.Configuration.defaultConfiguration
+            configuration.deleteRealmIfMigrationNeeded = false
+        
+            let realm = try Realm(configuration: configuration)
+            let oldFriends = realm.objects(Friends.self)
+            realm.beginWrite()
+            realm.delete(oldFriends)
+            realm.add(friends)
+            try realm.commitWrite()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func getFriends(completion: @escaping () -> Void) {
         let url = getURL(requestMethod: .friends)
         Alamofire.request(url).responseJSON(completionHandler: {response in
             guard let data = response.data else { return }
             do {
             let json = try JSONDecoder().decode(FriendsResponse.self, from: data)
-            let friends = json.response.items
-            completion(friends)
+                let friendsArr = (json.response.items)
+                self.saveFriendsData(friends: friendsArr)
+                completion()
             } catch {
-                print(error.localizedDescription)
+                Swift.print(error.localizedDescription)
             }
         })
     }
     
-    func getCollectionPhotos(completion: @escaping ([UIImage]) -> Void) {
+//    func getUsersIdInfo(complation: @escaping ([UserWithAvatar]) -> Void) {
+//        var friendsArrayWithID: [Friends] = []
+//        getFriends(completion: {friends in
+//            friendsArrayWithID = friends})
+//
+//            for friend in friendsArrayWithID {
+//                var urlUser = URLComponents()
+//                urlUser.scheme = "https"
+//                urlUser.host = "api.vk.com"
+//                urlUser.path = Methods.user.rawValue
+//                urlUser.queryItems = [
+//                    URLQueryItem(name: "user_ids", value: String(friend.id)),
+//                    URLQueryItem(name: "v", value: "5.81"),
+//                    URLQueryItem(name: "access_token", value: Session.user.token),
+//                    URLQueryItem(name: "fields", value: "photo_50")
+//                ]
+//                Alamofire.request(urlUser).responseJSON(completionHandler: {response in
+//                    guard let data = response.data else { return }
+//                    do {
+//                        let json = try JSONDecoder().decode(UserWithAvatarResponse.self, from: data)
+//                        complation(json.response)
+//                    } catch {
+//                        print (error.localizedDescription)
+//                    }
+//                })
+//            }
+//    }
+//
+//    func getAvatarUser(user: UserWithAvatar, complation: (UIImageView) -> Void) {
+//        let urlPhoto = URL(string: user.urlPhoto)
+//        let avatarImage = UIImageView()
+//            avatarImage.kf.setImage(with: urlPhoto)
+//            complation(avatarImage)
+//    }
+    func savePhotoData(photos: [Photos]) {
+        do {
+        let realm = try Realm()
+            let oldPhotos = realm.objects(Photos.self)
+        try realm.write({
+            realm.delete(oldPhotos)
+            realm.add(photos)
+            print(realm.configuration.fileURL)
+        })
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func getCollectionPhotos(completion: @escaping () -> Void) {
         let url = getURL(requestMethod: .photo)
-        var photos = [UIImage]()
         Alamofire.request(url).responseJSON(completionHandler: {response in
             guard let data = response.data else { return }
             let json = try! JSONDecoder().decode(PhotosResponse.self, from: data)
-            let arrayWithDataPhotos = json.response.items
-            
-            for element in arrayWithDataPhotos {
+            let photosArray = json.response.items
+            self.savePhotoData(photos: photosArray)
+            completion()
+        })
+    }
+    
+    func getImageViewPhoto(photos: [Photos], complation: @escaping ([UIImageView]) -> Void) {
+        var arrayPhotoImage = [UIImageView]()
+        for photo in photos {
+           let usr = URL(string: photo.url)
+            let imagePhoto = UIImageView()
+            imagePhoto.kf.setImage(with: usr)
+            arrayPhotoImage.append(imagePhoto)
+        }
+        complation(arrayPhotoImage)
+    }
+    
+    func saveGroupsData(groups: [Groups]) {
+        do {
+//        var configuretion = Realm.Configuration.defaultConfiguration
+//        configuretion.deleteRealmIfMigrationNeeded = true
+        let realm = try Realm()
+        let oldGroups = realm.objects(Groups.self)
+        try realm.write({
+            realm.delete(oldGroups)
+            realm.add(groups)
+        })
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+        func getCollectionGroups(completion: @escaping () -> Void) {
+            let url = getURL(requestMethod: .getGroups)
+            Alamofire.request(url).responseJSON(completionHandler: {response in
+                guard let data = response.data else { return }
                 do {
-                let urlFile = URL(string: element.url)
-                let photoData = try Data(contentsOf: urlFile!)
-                    let image: UIImage = UIImage(data: photoData)!
-                    photos.append(image)
+                    let json = try JSONDecoder().decode(GroupsResponse.self, from: data)
+                    let groups = json.response.items
+                    self.saveGroupsData(groups: groups)
+                    completion()
                 } catch {
                     print(error.localizedDescription)
                 }
-            }
-        })
-        completion(photos)
+            })
+        }
     }
-    
-    func getCollectionGroups(completion: @escaping ([Groups]) -> Void) {
-        let url = getURL(requestMethod: .getGroups)
-        Alamofire.request(url).responseJSON(completionHandler: {response in
-            guard let data = response.data else { return }
-            do {
-            let json = try JSONDecoder().decode(GroupsResponse.self, from: data)
-            let groups = json.response.items
-            completion(groups)
-            } catch {
-                print(error.localizedDescription)
-            }
-        })
-    }
-    
-}
+
+
+

@@ -7,7 +7,7 @@
 
 import UIKit
 import Alamofire
-
+import RealmSwift
 protocol chengeUserGroups {
     func chengeUserGroups()
 }
@@ -23,11 +23,8 @@ class UserGroupsTableViewController: UITableViewController {
         super.viewDidLoad()
       
         let session = VKService()
-        session.getCollectionGroups(completion: {[weak self] groups in
-            for group in groups {
-                self!.allGroups.append(Group(title: group.titles, selected: false))
-            }
-            
+        session.getCollectionGroups(completion: {[weak self]  in
+            self?.loadData()
             self?.tableView.reloadData()
         })
       
@@ -57,6 +54,19 @@ class UserGroupsTableViewController: UITableViewController {
     }
     // MARK: - Table view data source
 
+    func loadData() {
+        do {
+            let realm = try Realm()
+            let groupArr = realm.objects(Groups.self)
+            for group in groupArr {
+                self.allGroups.append(Group(title: group.titles, selected: false))
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

@@ -7,4 +7,5 @@ target 'VContact' do
 pod 'Alamofire', '~> 4.8'
   # Pods for VContact
 pod 'RealmSwift'
+pod 'Kingfisher', '~> 7.2'
 end
