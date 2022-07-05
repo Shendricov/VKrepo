@@ -14,22 +14,21 @@ protocol chengeUserGroups {
 
 class UserGroupsTableViewController: UITableViewController {
 
-    var groupsArray: Array<Groups> = []
-    var allGroups: Array<Group> = [Group(title: "KiteSerfing"), Group(title: "Cosmos"),Group(title: "Programming", selected: true),Group(title: "Serfing", selected: true),Group(title: "Formula1")]
-    var userGroups: Array<Group> = []
+    var allGroups: Results<Group>!
     
+    
+//    var userGroups: Array<Group> = []
+    private var groupsToken: NotificationToken?
+    var groupsResults: Results<Groups>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+            
+        loadData()
+        
         let session = VKService()
-        session.getCollectionGroups(completion: {[weak self]  in
-            self?.loadData()
-            self?.tableView.reloadData()
-        })
+        session.getCollectionGroups()
       
-        
-        
         let cellNibType = UINib(nibName: "PhotoNameCell", bundle: nil)
         tableView.register(cellNibType, forCellReuseIdentifier: "PhotoNameType")
         // Uncomment the following line to preserve selection between presentations
@@ -46,21 +45,35 @@ class UserGroupsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getUserGroups()
+//        getUserGroups()
     }
     
-    private func updateUserGroups(groups: [Group]){
-        userGroups = groups
-    }
+//    private func updateUserGroups(groups: [Group]){
+//        userGroups = groups
+//    }
     // MARK: - Table view data source
 
     func loadData() {
         do {
             let realm = try Realm()
-            let groupArr = realm.objects(Groups.self)
-            for group in groupArr {
-                self.allGroups.append(Group(title: group.titles, selected: false))
-            }
+            allGroups = realm.objects(Group.self)
+            print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+            print(allGroups)
+            groupsToken = allGroups.observe({change in
+                self.tableView.beginUpdates()
+                switch change {
+                    
+                case .initial(_):
+                    self.tableView.reloadData()
+                case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+                    self.tableView.deleteRows(at: deletions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self.tableView.insertRows(at: insertions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self.tableView.reloadRows(at: modifications.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                case .error(let error):
+                    print(error.localizedDescription)
+                }
+                self.tableView.endUpdates()
+            })
         } catch {
             print(error.localizedDescription)
         }
@@ -74,13 +87,13 @@ class UserGroupsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return userGroups.count
+        return allGroups.count
     }
 
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoNameType", for: indexPath) as! PhotoNameCell
-        cell.first_name.text = userGroups[indexPath.row].title
+        cell.first_name.text = allGroups[indexPath.row].title
         cell.avatar.image = UIImage(imageLiteralResourceName: "Groups/Formula1")
 
         return cell
@@ -90,12 +103,12 @@ class UserGroupsTableViewController: UITableViewController {
         let conAction = UIContextualAction(style: .destructive, title: "Delete", handler: {_,_,_ in
             var index: Int = 0
             self.allGroups.forEach({group in
-                if group == self.userGroups[indexPath.row]{
+                if group == self.allGroups[indexPath.row]{
                     self.allGroups[index].selected = false
                    }
                 index += 1
             })
-            self.getUserGroups()
+//            self.getUserGroups()
             tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
         })
         let action = UISwipeActionsConfiguration(actions: [conAction])
@@ -106,22 +119,22 @@ class UserGroupsTableViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let destenationView = storyboard.instantiateViewController(withIdentifier: "AllGroupsTableViewController") as! AllGroupsTableViewController
         destenationView.allGroupsChoose = allGroups
-        destenationView.updeteUserGroup = {[self] group in
-            allGroups = group
-            getUserGroups()
-            tableView.reloadData()
-        }
+//        destenationView.updeteUserGroup = {[self] group in
+//            allGroups = group
+//            getUserGroups()
+//            tableView.reloadData()
+//        }
         self.navigationController?.pushViewController(destenationView, animated: true)
     }
     
-    func getUserGroups() {
-        userGroups.removeAll()
-        allGroups.forEach({group in
-            if group.selected, !userGroups.contains(group){
-                userGroups.append(group)
-            }
-        })
-    }
+//    func getUserGroups() {
+//        allGroups.
+//        allGroups.forEach({group in
+//            if group.selected, !userGroups.contains(group){
+//                userGroups.append(group)
+//            }
+//        })
+//    }
     
     /*
     // Override to support conditional editing of the table view.

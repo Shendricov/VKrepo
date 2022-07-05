@@ -62,12 +62,13 @@ class VKService {
             realm.delete(oldFriends)
             realm.add(friends)
             try realm.commitWrite()
+            print(realm.configuration.fileURL)
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    func getFriends(completion: @escaping () -> Void) {
+    func getFriends() {
         let url = getURL(requestMethod: .friends)
         Alamofire.request(url).responseJSON(completionHandler: {response in
             guard let data = response.data else { return }
@@ -75,7 +76,6 @@ class VKService {
             let json = try JSONDecoder().decode(FriendsResponse.self, from: data)
                 let friendsArr = (json.response.items)
                 self.saveFriendsData(friends: friendsArr)
-                completion()
             } catch {
                 Swift.print(error.localizedDescription)
             }
@@ -152,29 +152,36 @@ class VKService {
         complation(arrayPhotoImage)
     }
     
-    func saveGroupsData(groups: [Groups]) {
+    func saveGroupsData(groups: [Group]) {
         do {
 //        var configuretion = Realm.Configuration.defaultConfiguration
 //        configuretion.deleteRealmIfMigrationNeeded = true
         let realm = try Realm()
-        let oldGroups = realm.objects(Groups.self)
+        let oldGroups = realm.objects(Group.self)
         try realm.write({
             realm.delete(oldGroups)
             realm.add(groups)
         })
+            print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+            print(realm.configuration.fileURL)
         } catch {
             print(error.localizedDescription)
         }
     }
-        func getCollectionGroups(completion: @escaping () -> Void) {
+        func getCollectionGroups() {
             let url = getURL(requestMethod: .getGroups)
             Alamofire.request(url).responseJSON(completionHandler: {response in
                 guard let data = response.data else { return }
                 do {
                     let json = try JSONDecoder().decode(GroupsResponse.self, from: data)
                     let groups = json.response.items
-                    self.saveGroupsData(groups: groups)
-                    completion()
+                    var groupsFromAPI: [Group] = [Group(title: "KiteSerfing", selected: true), Group(title: "Cosmos", selected: false),Group(title: "Programming", selected: true),Group(title: "Serfing", selected: true),Group(title: "Formula1", selected: false)]
+                    groups.forEach({ group in
+                        let result = Group(title: group.titles, selected: false)
+                        groupsFromAPI.append(result)
+                    })
+                    self.saveGroupsData(groups: groupsFromAPI)
+                    
                 } catch {
                     print(error.localizedDescription)
                 }

@@ -12,19 +12,20 @@ import RealmSwift
 class FriendsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var viewForSortLiteral: UIView!
-
+    private var friendsToken: NotificationToken?
+    var friendsResults: Results<Friends>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        self.loadData()
         
         let service = VKService()
-        service.getFriends(completion: {[weak self] in
-            self?.loadData()
-            self?.tableView.reloadData()
-        })
+        service.getFriends()
         
+
         let cellTypeNib = UINib(nibName: "PhotoNameCell", bundle: nil)
         tableView.register(cellTypeNib, forCellReuseIdentifier: "PhotoNameType")
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,71 +34,92 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     // MARK: - Table view data source
-
     func loadData() {
         do {
             let realm = try Realm()
-            let friends = realm.objects(Friends.self)
-            self.friendsArray = Array(friends)
+            friendsResults = realm.objects(Friends.self)
+            friendsToken = friendsResults!.observe {response in
+                switch response {
+                case .initial:
+                    self.tableView.reloadData()
+                case .update(_,let deletions, let insertions, let modifications):
+/*    Все изменения находятся внутри двух методов – self?.tableView.beginUpdates() и self?.tableView.endUpdates(). Это сделано, чтобы изменения применялись не по очереди а одновременно, единой транзакцией.
+ */
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self.tableView.insertRows(at: insertions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self.tableView.reloadRows(at: modifications.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                case .error(let error):
+                    print(error.localizedDescription)
+                    self.tableView.endUpdates()
+                }
+            }
+            
         } catch {
             print(error.localizedDescription)
         }
     }
     
     
-    var friendsArray: Array<Friends> = [] {
-        didSet {
-            friendsArray.sort(by: {($0.first_name < $1.first_name)})
-        }
-    }
+//    var friendsArray: Array<Friends> = [] {
+//        didSet {
+//
+//            print(friendsArray.count)
+//            friendsArray.sort(by: {($0.first_name < $1.first_name)})
+//
+//        }
+//    }
     
     
     
+//    var users: Array<UserWithAvatar> = [] {
+//        didSet {
+//        users.sort(by: {one, two in one.first_name < two.first_name})
+//        }
+//    }
     
-    var users: Array<UserWithAvatar> = [] {
-        didSet {
-        users.sort(by: {one, two in one.first_name < two.first_name})
-        }
-    }
     
-    
-    private func getArrForTableView(usersArr: [Friends]) -> [[Friends]] {
-        var result:[[Friends]] = []
-        var sectionsOfLetters: [Character] = []
-        usersArr.forEach({ user in
-            let letter = user.first_name.first!
-            if !sectionsOfLetters.contains(letter) {
-                sectionsOfLetters.append(letter)
-            }
-        })
-        sectionsOfLetters.forEach({ letter in
-            var tempuraryArr:[Friends] = []
-            for user in friendsArray {
-                if user.first_name.first == letter {
-                    tempuraryArr.append(user)
-                }
-            }
-            result.append(tempuraryArr)
-        })
-        return result
-    }
+//    private func getArrForTableView(usersArr: [Friends]) -> [[Friends]] {
+//        var result:[[Friends]] = []
+//        var sectionsOfLetters: [Character] = []
+//        usersArr.forEach({ user in
+//            let letter = user.first_name.first!
+//            if !sectionsOfLetters.contains(letter) {
+//                sectionsOfLetters.append(letter)
+//            }
+//        })
+//        sectionsOfLetters.forEach({ letter in
+//            var tempuraryArr:[Friends] = []
+//            for user in friendsArray {
+//                if user.first_name.first == letter {
+//                    tempuraryArr.append(user)
+//                }
+//            }
+//            result.append(tempuraryArr)
+//        })
+//        return result
+//    }
     
     var usersPhotoStorage: Dictionary<String,[UIImage]> = ["Popay":[UIImage(imageLiteralResourceName: "Popay1"), UIImage(imageLiteralResourceName: "Popay2"),UIImage(imageLiteralResourceName: "Popay3"),UIImage(imageLiteralResourceName: "Popay4"),UIImage(imageLiteralResourceName: "Popay5"),UIImage(imageLiteralResourceName: "Popay6"),UIImage(imageLiteralResourceName: "Popay7")], "Mikky": [UIImage(imageLiteralResourceName: "Mikky1"),UIImage(imageLiteralResourceName: "Mikky2"),UIImage(imageLiteralResourceName: "Mikky3"),UIImage(imageLiteralResourceName: "Mikky4"),UIImage(imageLiteralResourceName: "Mikky5"),UIImage(imageLiteralResourceName: "Mikky6"),UIImage(imageLiteralResourceName: "Mikky7")], "Maikle": [UIImage(imageLiteralResourceName: "Mike1"),UIImage(imageLiteralResourceName: "Mike2"),UIImage(imageLiteralResourceName: "Mike3"),UIImage(imageLiteralResourceName: "Mike4"),UIImage(imageLiteralResourceName: "Mike5")]]
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return getArrForTableView(usersArr: friendsArray).count
+//        return getArrForTableView(usersArr: friendsArray).count
+        return 1
     }
   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return getArrForTableView(usersArr: friendsArray)[section].count
+//        return getArrForTableView(usersArr: friendsArray)[section].count
+        return friendsResults?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoNameType", for: indexPath) as! PhotoNameCell
+        let friend = friendsResults![indexPath.row]
         cell.avatar.image = UIImage(imageLiteralResourceName: "Mikky")
-        cell.first_name.text = getArrForTableView(usersArr: friendsArray)[indexPath.section][indexPath.row].first_name
-        cell.last_name.text = getArrForTableView(usersArr: friendsArray)[indexPath.section][indexPath.row].last_name
+        cell.first_name.text = friend.first_name
+        cell.last_name.text = friend.last_name
         cell.selectionStyle = .blue
         cell.accessoryType = .disclosureIndicator
         return cell
@@ -147,13 +169,13 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
 //        return actionConfiguration
 //    }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        здесь можно сократить код, сли переделать массив в словарь.
-        let getArr = getArrForTableView(usersArr: friendsArray)[section].first
-        let firstName = getArr?.first_name
-        let sectionLetter = firstName?.first
-        return sectionLetter?.description
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+////        здесь можно сократить код, сли переделать массив в словарь.
+//        let getArr = getArrForTableView(usersArr: friendsArray)[section].first
+//        let firstName = getArr?.first_name
+//        let sectionLetter = firstName?.first
+//        return sectionLetter?.description
+//    }
     
     
     /*

@@ -6,11 +6,11 @@
 //
 
 import UIKit
-
+import RealmSwift
 class AllGroupsTableViewController: UITableViewController {
 
-    var allGroupsChoose: Array<Group> = []
-    var userGroupsChoose: Array<Group> = []
+    var allGroupsChoose: Results<Group>!
+    var userGroupsChoose: Results<Group>!
     private var filteredSearchGroups: Array<Group> = []
 
     private var searchController = UISearchController(searchResultsController: nil)
@@ -94,13 +94,13 @@ class AllGroupsTableViewController: UITableViewController {
                 filteredGroup.selected = true
                 filteredSearchGroups[indexPath.row] = filteredGroup
             }
-            var index = 0
-            allGroupsChoose.forEach({(group: Group) in
-                if group.title == filteredGroup.title {
-                    allGroupsChoose[index] = filteredGroup
-                }
-                index += 1
-            })
+//            var index = 0
+//            allGroupsChoose.forEach({(group: Group) in
+//                if group.title == filteredGroup.title {
+//                    (Array(allGroupsChoose))[index] = filteredGroup
+//                }
+//                index += 1
+//            })
         } else {
             if allGroupsChoose[indexPath.row].selected {
                 allGroupsChoose[indexPath.row].selected = false
@@ -115,7 +115,7 @@ class AllGroupsTableViewController: UITableViewController {
     @IBAction func backToUserGroups(_ sender: UIBarButtonItem) {
         navigationController?.viewControllers.forEach({controller in
             (controller as? UserGroupsTableViewController)?.allGroups = allGroupsChoose})
-        updeteUserGroup?(allGroupsChoose)
+//        updeteUserGroup?(allGroupsChoose)
         navigationController?.popViewController(animated: true)
     }
     

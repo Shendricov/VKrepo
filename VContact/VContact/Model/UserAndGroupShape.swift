@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import RealmSwift
 protocol UserProtocol {
     var first_name: String { get set }
     var last_name: String { get set }
@@ -29,9 +29,14 @@ protocol GroupProtocol {
 //    var avatar: UIImage { get set }
 }
 
-struct Group: GroupProtocol, Equatable {
-    var title: String
-    var selected: Bool = false
+class Group: Object, GroupProtocol {
+   @Persisted var title: String = ""
+   @Persisted var selected: Bool = false
+    convenience init(title: String, selected: Bool) {
+        self.init()
+        self.title = title
+        self.selected = selected
+    }
 //    var avatar: UIImage
 }
 
