@@ -6,14 +6,22 @@
 //
 
 import UIKit
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    private var onInstallComleted: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: "on_install_completed")
+        } set {
+            UserDefaults.standard.set(newValue , forKey: "on_install_completed")
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
         return true
     }
 

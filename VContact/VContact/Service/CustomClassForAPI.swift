@@ -20,10 +20,37 @@ class Friends: Object, Decodable {
     @Persisted var id: Int = 0
     @Persisted var first_name: String = ""
     @Persisted var last_name: String = ""
-    
+    var groups: [Groups] = []
 //    override static func primaryKey() -> String? {
 //        return "id"
 //    }
+//    init(id: Int, first_name: String, last_name: String, groops: [Groups]) {
+//        self .id = id
+//        self.first_name = first_name
+//        self.last_name = last_name
+//        self.groups = groops
+//    }
+
+    convenience init(id: Int, first_name: String, last_name: String, dict: Any) throws {
+        self.init()
+        enum ErrorFriendsInit: Error {
+            case invalidDict
+            case invalidGroups
+        }
+
+        guard let dict = dict as? [String: Any] else { throw ErrorFriendsInit.invalidDict }
+        guard let groupsAnyObject = dict["groups"] as? [Any] else {throw ErrorFriendsInit.invalidGroups}
+        let groups = groupsAnyObject.compactMap({try! Groups(dict: $0)})
+        
+        self.id = id
+        self.first_name = first_name
+        self.last_name = last_name
+        self.groups = groups
+    }
+    
+    var toAnyObject: Any {
+        ["groups": groups.compactMap({$0.toAnyObject})]
+    }
 }
 
 //MARK: Class for Groups
@@ -44,6 +71,22 @@ class Groups: Object, Decodable {
         case id
         case titles = "name"
 
+    }
+    convenience init(id: String) {
+        self .init()
+        guard let idInt = Int(id) else { return }
+        self .id = idInt
+    }
+    
+    convenience init(dict: Any) {
+        self.init()
+        guard let dict = dict as? [String: Any] else { return }
+        guard let id = dict["id"] as? String else { return }
+        self.id = Int(id)!
+    }
+    
+    var toAnyObject: Any {
+        ["groupId": id]
     }
 }
 //MARK: Class for Photos

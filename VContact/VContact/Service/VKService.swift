@@ -10,9 +10,12 @@ import Alamofire
 import Kingfisher
 import RealmSwift
 import UIKit
+import FirebaseDatabase
 
 class VKService {
 
+    private var fireBaseDatabaseToken: DatabaseHandle?
+    
     enum Methods: String {
         case friends = "/method/friends.get"
         case photo = "/method/photos.get"
@@ -162,8 +165,6 @@ class VKService {
             realm.delete(oldGroups)
             realm.add(groups)
         })
-            print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-            print(realm.configuration.fileURL)
         } catch {
             print(error.localizedDescription)
         }
@@ -172,9 +173,13 @@ class VKService {
             let url = getURL(requestMethod: .getGroups)
             Alamofire.request(url).responseJSON(completionHandler: {response in
                 guard let data = response.data else { return }
+                print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+                print(response.value)
                 do {
                     let json = try JSONDecoder().decode(GroupsResponse.self, from: data)
                     let groups = json.response.items
+                    if let userID = Int(Session.user.userID) {
+                        self.userGroupsDatabase(userId: userID, groups: groups)}
                     var groupsFromAPI: [Group] = [Group(title: "KiteSerfing", selected: true), Group(title: "Cosmos", selected: false),Group(title: "Programming", selected: true),Group(title: "Serfing", selected: true),Group(title: "Formula1", selected: false)]
                     groups.forEach({ group in
                         let result = Group(title: group.titles, selected: false)
@@ -187,6 +192,23 @@ class VKService {
                 }
             })
         }
+    
+    private func userGroupsDatabase(userId: Int, groups: [Groups]) {
+        let user = Friends()
+        user.id = userId
+        user.groups = groups
+        let userAnyObject = user.toAnyObject
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print(userAnyObject)
+        let dbConnect = Database.database(url: "https://vkcontact-36e1e-default-rtdb.europe-west1.firebasedatabase.app").reference()
+        dbConnect.child(String(userId)).setValue(userAnyObject)
+//        fireBaseDatabaseToken = dbConnect.child(String(userId)).observe(DataEventType.value, with: {snapshot in
+//            guard let value = snapshot.value else { return }
+//            let user = Friends(id: userId, first_name: <#T##String#>, last_name: <#T##String#>, dict: <#T##Any#>)
+//        })
+    }
+    
+    
     }
 
 

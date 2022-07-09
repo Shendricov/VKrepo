@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+
 protocol UserProtocol {
     var first_name: String { get set }
     var last_name: String { get set }

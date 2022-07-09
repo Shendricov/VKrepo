@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import RealmSwift
+
 protocol chengeUserGroups {
     func chengeUserGroups()
 }
@@ -19,6 +20,7 @@ class UserGroupsTableViewController: UITableViewController {
     
 //    var userGroups: Array<Group> = []
     private var groupsToken: NotificationToken?
+  
     var groupsResults: Results<Groups>?
     
     override func viewDidLoad() {
@@ -53,31 +55,30 @@ class UserGroupsTableViewController: UITableViewController {
 //    }
     // MARK: - Table view data source
 
-    func loadData() {
+    private func loadData() {
         do {
             let realm = try Realm()
             allGroups = realm.objects(Group.self)
-            print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-            print(allGroups)
+            print(allGroups ?? "ОШИБКА")
             groupsToken = allGroups.observe({change in
-                self.tableView.beginUpdates()
                 switch change {
                     
                 case .initial(_):
                     self.tableView.reloadData()
                 case .update(_, deletions: let deletions, insertions: let insertions, modifications: let modifications):
+                    self.tableView.beginUpdates()
                     self.tableView.deleteRows(at: deletions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
                     self.tableView.insertRows(at: insertions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
                     self.tableView.reloadRows(at: modifications.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self.tableView.endUpdates()
                 case .error(let error):
                     print(error.localizedDescription)
                 }
-                self.tableView.endUpdates()
+                
             })
         } catch {
             print(error.localizedDescription)
         }
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -94,6 +95,7 @@ class UserGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoNameType", for: indexPath) as! PhotoNameCell
         cell.first_name.text = allGroups[indexPath.row].title
+        cell.last_name.text = ""
         cell.avatar.image = UIImage(imageLiteralResourceName: "Groups/Formula1")
 
         return cell

@@ -8,4 +8,8 @@ pod 'Alamofire', '~> 4.8'
   # Pods for VContact
 pod 'RealmSwift'
 pod 'Kingfisher', '~> 7.2'
+pod 'FirebaseCore'
+pod 'FirebaseDatabase'
+pod 'FirebaseAnalytics'
+pod 'FirebaseAuth'
 end

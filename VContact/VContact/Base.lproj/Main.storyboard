@@ -49,7 +49,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter login" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XXB-68-e8H">
                                                         <rect key="frame" x="97.5" y="0.0" width="252.5" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="username"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -65,7 +65,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mr0-hT-SR6">
                                                         <rect key="frame" x="98" y="0.0" width="252" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -116,12 +116,27 @@
                     <connections>
                         <outlet property="loginTextField" destination="XXB-68-e8H" id="ExW-5C-wpA"/>
                         <outlet property="passwordTextField" destination="Mr0-hT-SR6" id="Kpb-kU-kY2"/>
-                        <segue destination="Gqb-f7-8Hp" kind="presentation" identifier="segueAfterRegistration" modalPresentationStyle="fullScreen" id="PVg-Wz-aSC"/>
+                        <segue destination="Gqb-f7-8Hp" kind="presentation" identifier="finishAuth" modalPresentationStyle="fullScreen" id="Xv9-PD-bzh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1961" y="-652"/>
+            <point key="canvasLocation" x="1661" y="139"/>
+        </scene>
+        <!--Test View Controller-->
+        <scene sceneID="xzk-0s-dIw">
+            <objects>
+                <viewController id="qLV-67-Aas" customClass="TestViewController" customModule="VContact" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1XT-qm-Wmp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="TDD-tb-tdL"/>
+                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8ee-NL-XRM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2746" y="-652"/>
         </scene>
         <!--Группы пользователя-->
         <scene sceneID="DHn-rZ-8Z9">
@@ -209,12 +224,12 @@
                     <navigationItem key="navigationItem" id="hBr-80-Wec"/>
                     <connections>
                         <outlet property="webView" destination="d9u-hr-eGs" id="bFi-cG-d3j"/>
-                        <segue destination="Gqb-f7-8Hp" kind="presentation" identifier="segueAfterRegistration" modalPresentationStyle="fullScreen" id="vwq-tf-CvY"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="segueAfterRegistration" modalPresentationStyle="fullScreen" id="zVz-yi-d7s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVN-hb-b2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1961" y="139"/>
+            <point key="canvasLocation" x="574" y="139"/>
         </scene>
         <!--News-->
         <scene sceneID="0XI-A5-SC5">
@@ -356,14 +371,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4pP-y9-un1">
-                                <rect key="frame" x="0.0" y="140" width="382" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="382" height="725"/>
                                 <connections>
                                     <outlet property="dataSource" destination="33f-D6-PW0" id="Prj-8b-Urg"/>
                                     <outlet property="delegate" destination="33f-D6-PW0" id="FEr-EL-t4w"/>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEu-s6-hg1">
-                                <rect key="frame" x="394" y="140" width="20" height="673"/>
+                                <rect key="frame" x="394" y="88" width="20" height="725"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="E1U-03-j64"/>
@@ -615,19 +630,18 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vwq-tf-CvY"/>
         <segue reference="9qF-33-Inc"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Mikky" width="197" height="255"/>
         <image name="Popay" width="159" height="318"/>
-        <image name="circle.fill" catalog="system" width="32" height="32"/>
-        <image name="heart" catalog="system" width="32" height="32"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="logoVK-1" width="183" height="163"/>
-        <image name="newspaper" catalog="system" width="32" height="32"/>
-        <image name="person.2" catalog="system" width="32" height="32"/>
-        <image name="person.fill" catalog="system" width="32" height="32"/>
-        <image name="scribble.variable" catalog="system" width="32" height="32"/>
+        <image name="newspaper" catalog="system" width="128" height="111"/>
+        <image name="person.2" catalog="system" width="128" height="81"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="scribble.variable" catalog="system" width="128" height="118"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -636,6 +650,9 @@
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

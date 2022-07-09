@@ -12,6 +12,10 @@
 		3002210D2838A9CA008B22BD /* ElementWithCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002210C2838A9CA008B22BD /* ElementWithCodeViewController.swift */; };
 		3002210F2838B776008B22BD /* TBCForElementWithCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002210E2838B776008B22BD /* TBCForElementWithCode.swift */; };
 		301C215E284CDB2400BEB902 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301C215D284CDB2300BEB902 /* CustomNavigationController.swift */; };
+		3078451A287464B400E99EA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30784519287464B400E99EA8 /* GoogleService-Info.plist */; };
+		3078451C287709E000E99EA8 /* Dogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3078451B287709E000E99EA8 /* Dogs.swift */; };
+		3078451F28770FEF00E99EA8 /* Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3078451E28770FEF00E99EA8 /* Human.swift */; };
+		307845212877170400E99EA8 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307845202877170400E99EA8 /* TestViewController.swift */; };
 		307A059D2828ED4E0060694A /* PhotoNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A059B2828ED4E0060694A /* PhotoNameCell.swift */; };
 		307A059E2828ED4E0060694A /* PhotoNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307A059C2828ED4E0060694A /* PhotoNameCell.xib */; };
 		307A05A42828F0C60060694A /* UserAndGroupShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A05A32828F0C60060694A /* UserAndGroupShape.swift */; };
@@ -47,6 +51,10 @@
 		3002210C2838A9CA008B22BD /* ElementWithCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementWithCodeViewController.swift; sourceTree = "<group>"; };
 		3002210E2838B776008B22BD /* TBCForElementWithCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBCForElementWithCode.swift; sourceTree = "<group>"; };
 		301C215D284CDB2300BEB902 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		30784519287464B400E99EA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3078451B287709E000E99EA8 /* Dogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dogs.swift; sourceTree = "<group>"; };
+		3078451E28770FEF00E99EA8 /* Human.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Human.swift; sourceTree = "<group>"; };
+		307845202877170400E99EA8 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		307A059B2828ED4E0060694A /* PhotoNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoNameCell.swift; sourceTree = "<group>"; };
 		307A059C2828ED4E0060694A /* PhotoNameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoNameCell.xib; sourceTree = "<group>"; };
 		307A05A32828F0C60060694A /* UserAndGroupShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAndGroupShape.swift; sourceTree = "<group>"; };
@@ -105,6 +113,16 @@
 				3002210C2838A9CA008B22BD /* ElementWithCodeViewController.swift */,
 			);
 			path = ElementsWithCode;
+			sourceTree = "<group>";
+		};
+		3078451D28770C8C00E99EA8 /* Test class FirebaseDatabase */ = {
+			isa = PBXGroup;
+			children = (
+				3078451B287709E000E99EA8 /* Dogs.swift */,
+				3078451E28770FEF00E99EA8 /* Human.swift */,
+				307845202877170400E99EA8 /* TestViewController.swift */,
+			);
+			path = "Test class FirebaseDatabase";
 			sourceTree = "<group>";
 		};
 		307A059A2828ED050060694A /* View */ = {
@@ -211,6 +229,8 @@
 		3ED76D63281B8FC900F24DE4 /* VContact */ = {
 			isa = PBXGroup;
 			children = (
+				30784519287464B400E99EA8 /* GoogleService-Info.plist */,
+				3078451D28770C8C00E99EA8 /* Test class FirebaseDatabase */,
 				3E34FD8B285820F200526293 /* Service */,
 				3E314D6A284C7FA90095317C /* CustonNavigationController */,
 				307A05A22828F0AB0060694A /* Model */,
@@ -292,6 +312,7 @@
 				3ED76D6E281B8FCC00F24DE4 /* Assets.xcassets in Resources */,
 				3ED76D6C281B8FC900F24DE4 /* Main.storyboard in Resources */,
 				3E6582B9283B551A008F7502 /* NewsTableViewCell.xib in Resources */,
+				3078451A287464B400E99EA8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +369,8 @@
 				3ED76D69281B8FC900F24DE4 /* ViewController.swift in Sources */,
 				307A059D2828ED4E0060694A /* PhotoNameCell.swift in Sources */,
 				30B5A4E8285DF91000F865B3 /* CustomClassForAPI.swift in Sources */,
+				3078451F28770FEF00E99EA8 /* Human.swift in Sources */,
+				3078451C287709E000E99EA8 /* Dogs.swift in Sources */,
 				3E6582B8283B551A008F7502 /* NewsTableViewCell.swift in Sources */,
 				3000498C282A4A6F001A1455 /* UserGroupsTableViewController.swift in Sources */,
 				3E8810902846FD5700AEF02C /* FullScreenPhotoViewController.swift in Sources */,
@@ -357,6 +380,7 @@
 				3002210F2838B776008B22BD /* TBCForElementWithCode.swift in Sources */,
 				307A05A42828F0C60060694A /* UserAndGroupShape.swift in Sources */,
 				30F72E4F2847839F00541C66 /* SecondFullScreenViewController.swift in Sources */,
+				307845212877170400E99EA8 /* TestViewController.swift in Sources */,
 				3E7C38E52837334400559B26 /* PhotoView.swift in Sources */,
 				3E6582B5283B5254008F7502 /* NewsTableViewController.swift in Sources */,
 				30F72E4B28438DCA00541C66 /* FriendsViewController.swift in Sources */,

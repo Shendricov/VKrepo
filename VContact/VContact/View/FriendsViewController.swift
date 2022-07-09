@@ -49,9 +49,9 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
                     self.tableView.deleteRows(at: deletions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
                     self.tableView.insertRows(at: insertions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
                     self.tableView.reloadRows(at: modifications.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self.tableView.endUpdates()
                 case .error(let error):
                     print(error.localizedDescription)
-                    self.tableView.endUpdates()
                 }
             }
             

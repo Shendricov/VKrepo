@@ -6,27 +6,30 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
 
 class ViewController: UIViewController {
 
     @IBOutlet var loginTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
-    var users: Dictionary<String,String> = ["": ""]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
  
     }
-    @IBAction func enterButoon(_ sender: UIButton) {
-        guard let name = loginTextField.text,
-              let password = passwordTextField.text
-              else {
-            alertError(message: "Enter login and password")
-            return }
-        if users[name] == password {
-            performSegue(withIdentifier: "segueAfterRegistration", sender: nil)
-        } else {
-            alertError(message: "Your login or password wrong.")
-            return } 
+    @IBAction private func enterButoon(_ sender: UIButton) {
+        performAuth(email: loginTextField.text, password: passwordTextField.text, completion: { [weak self] isCompletion in
+            DispatchQueue.main.async {
+                if isCompletion {
+                    self?.performSegue(withIdentifier: "finishAuth", sender: nil)
+                } else {
+                    self?.performSegue(withIdentifier: "finishAuth", sender: nil)
+                    self?.loginTextField.text?.removeAll()
+                    self?.passwordTextField.text?.removeAll()
+                    return }
+            }
+        })
     }
    
     private func alertError(message: String) {
@@ -36,6 +39,22 @@ class ViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    func logoOutUnwind (_ segue: UIStoryboardSegue) {}
+    private func performAuth(email: String? ,password: String?, completion: @escaping (Bool) -> Void) {
+        guard let email = email,
+              !email.isEmpty,
+              let password = password,
+              !password.isEmpty
+              else {
+            alertError(message: "Enter login and password")
+            completion(false)
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+//            if let error = error {
+//                self.alertError(message: error.localizedDescription)}
+            completion(authResult != nil)
+        }
+    }
 }
 
