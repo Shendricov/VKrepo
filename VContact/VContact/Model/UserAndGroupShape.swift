@@ -39,6 +39,8 @@ class Group: Object, GroupProtocol {
         self.selected = selected
     }
 //    var avatar: UIImage
+    
+    
 }
 
 protocol NewsProtocol {

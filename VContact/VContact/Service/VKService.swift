@@ -22,6 +22,7 @@ class VKService {
         case getGroups = "/method/groups.get"
         case searchGroup = "/method/groups.search"
         case user = "/method/users.get"
+        case newsfeed = "/method/newsfeed.get"
     }
     
     
@@ -47,6 +48,8 @@ class VKService {
             extraQueryItem = URLQueryItem(name: "extended", value:  "1")
         } else if requestMethod == .photo {
             extraQueryItem = URLQueryItem(name: "album_id", value:  "wall")
+        } else if requestMethod == .newsfeed {
+            extraQueryItem = URLQueryItem(name: "filters", value: "post")
         }
         url.queryItems?.append(extraQueryItem)
         return url
@@ -173,8 +176,6 @@ class VKService {
             let url = getURL(requestMethod: .getGroups)
             Alamofire.request(url).responseJSON(completionHandler: {response in
                 guard let data = response.data else { return }
-                print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-                print(response.value)
                 do {
                     let json = try JSONDecoder().decode(GroupsResponse.self, from: data)
                     let groups = json.response.items
@@ -207,6 +208,31 @@ class VKService {
 //            let user = Friends(id: userId, first_name: <#T##String#>, last_name: <#T##String#>, dict: <#T##Any#>)
 //        })
     }
+    
+    func getNewsfeed(complation: @escaping ([NewsJson]) -> Void) {
+        let url = getURL(requestMethod: .newsfeed)
+        
+        Alamofire.request(url).responseJSON(completionHandler: {response in
+            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+            print(response.value)
+            guard let data = response.data else { return }
+            
+            print(data.description)
+            do {
+                print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@###################")
+                let json = try JSONDecoder().decode(NewsResponse.self, from: data)
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!")
+                print(json)
+                let newsJson = json.response.items
+                print(newsJson.count)
+                complation (newsJson)
+            }catch {
+                print("FUCK")
+                print(error.localizedDescription)
+            }
+        })
+    }
+    
     
     
     }

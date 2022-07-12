@@ -141,3 +141,20 @@ class UserWithAvatar: Decodable {
         case urlPhoto = "photo_50"
     }
 }
+
+// MARK: News
+
+class NewsResponse: Decodable {
+    var response: NewsItems
+}
+
+class NewsItems: Decodable {
+    var items: [NewsJson]
+}
+
+class NewsJson: Decodable {
+    var source_id: Int
+    var text: String
+    var date: Int
+    
+}
