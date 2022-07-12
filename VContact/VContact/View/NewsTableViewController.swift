@@ -11,14 +11,23 @@ class NewsTableViewController: UITableViewController {
 
     var allNewsArr = [News(avatarPhoto: UIImage(named: "Chapoklyak")!, nameUser: "Chapoklyak", dateNews: "23.05.2022", textNews: "Chinese rover finds new evidence of water on Mars.", imageNews: UIImage(named: "Chapoklyak23.05.2022")!, likeImage: UIImage(systemName: "heart")!, countLike: 0)]
     
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsCellType")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    
+        let session = VKService()
+        session.getNewsfeed(complation: ){ response in
+            for element in response {
+                let news = News(avatarPhoto: UIImage(named: "Chapoklyak")!, nameUser: "Chapoklyak", dateNews: String(element.date), textNews: element.text, imageNews: UIImage(named: "Chapoklyak")!, likeImage: UIImage(systemName: "heart")!, countLike: 0)
+                self.allNewsArr.append(news)
+            }
+            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+            print(self.allNewsArr.count)
+            self.tableView.reloadData()
+        }
+        
+        
     }
 
     // MARK: - Table view data source

@@ -76,7 +76,7 @@ class WebStartViewController: UIViewController, WKNavigationDelegate {
         URLQueryItem(name: "redirect_uri", value:
         "https://oauth.vk.com/blank.html"),
 //  битовая маска настроек доступа приложения, которые необходимо проверить при авторизации пользователя и запросить отсутствующие.
-        URLQueryItem(name: "scope", value: "262150"),
+        URLQueryItem(name: "scope", value: "270342"),
 //  тип ответа, который необходимо получить.
         URLQueryItem(name: "response_type", value: "token"),
         URLQueryItem(name: "v", value: "5.68")
